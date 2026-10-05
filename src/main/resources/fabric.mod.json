@@ -1,0 +1,27 @@
+{
+	"schemaVersion": 1,
+	"id": "strawberry-flavored",
+	"version": "${version}",
+	"name": "Strawberry Flavored",
+	"description": "A collection of strawberry-flavored additions to Minecraft.",
+	"authors": ["prohev"],
+	"license": "MIT",
+	"icon": "assets/strawberry-flavored/icon.png",
+
+	"environment": "server",
+
+	"entrypoints": {
+		"main": ["dev.strawberryflavored.StrawberryFlavored"]
+	},
+
+	"mixins": [""],
+
+	"depends": {
+		"fabricloader": "*",
+		"minecraft": "*",
+		"java": ">=25",
+		"fabric-api": "*",
+		"polymer-core":"*",
+    	"polymer-resource-pack": "*"
+	}
+}
