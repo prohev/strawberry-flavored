@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.strawberryflavored.world.CropProtection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,25 +18,20 @@ public abstract class FarmlandBlockMixin {
             method = "fallOn",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/FarmlandBlock;turnToDirt(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
+                    target = "Lnet/minecraft/world/level/block/FarmlandBlock;turnToDirt(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V"
             )
     )
     private static void strawberryFlavored$protectCrops(
+            Entity entity,
             BlockState state,
             Level level,
             BlockPos pos,
-            Operation<Void> original,
-            Level fallLevel,
-            BlockState fallState,
-            BlockPos fallPos,
-            Entity entity,
-            float fallDistance
+            Operation<Void> original
     ) {
-        if (entity instanceof net.minecraft.world.entity.LivingEntity living
-                && CropProtection.preventsTrampling(living)) {
+        if (entity instanceof LivingEntity living && CropProtection.preventsTrampling(living)) {
             return;
         }
 
-        original.call(state, level, pos);
+        original.call(entity, state, level, pos);
     }
 }

@@ -3,6 +3,8 @@ package dev.strawberryflavored.item;
 import dev.strawberryflavored.StrawberryFlavored;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.item.SimplePolymerItem;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -12,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.equipment.Equippable;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 public class FlowerCrownItem extends SimplePolymerItem implements PolymerItem {
     public static final ResourceKey<Item> ID = ResourceKey.create(
@@ -27,16 +28,20 @@ public class FlowerCrownItem extends SimplePolymerItem implements PolymerItem {
             );
 
     public FlowerCrownItem(Item.Properties settings) {
-        super(settings, Items.PAPER);
+        super(settings, Items.GOLDEN_HELMET);
     }
 
     @Override
-    public Identifier getPolymerItemModel(ItemStack stack, PacketContext context) {
-        return StrawberryFlavored.id("item/flower_crown");
+    public Identifier getPolymerItemModel(
+            ItemStack stack,
+            PacketContext context,
+            HolderLookup.Provider lookup
+    ) {
+        return StrawberryFlavored.id("flower_crown");
     }
 
     public static Item.Properties createProperties() {
-        return new Item.Properties()
+        return Signature.sign(new Item.Properties()
                 .setId(ID)
                 .stacksTo(1)
                 .component(
@@ -47,6 +52,6 @@ public class FlowerCrownItem extends SimplePolymerItem implements PolymerItem {
                                 .setDispensable(true)
                                 .setSwappable(true)
                                 .build()
-                );
+                ));
     }
 }

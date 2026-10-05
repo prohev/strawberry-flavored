@@ -19,7 +19,7 @@ import net.minecraft.world.item.equipment.trim.ArmorTrim;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
 
 public final class TrimBuffManager {
-    private static final int EFFECT_DURATION_TICKS = 40;
+    private static final int EFFECT_DURATION_TICKS = 60;
     private static final int REFRESH_THRESHOLD_TICKS = 20;
 
     // Tracks only effects that this mod actually supplied to a player.
