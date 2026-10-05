@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "strawberry-flavored:flower_crown"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "strawberry-flavored:flower_crown"
+      }
+    ]
+  }
+}

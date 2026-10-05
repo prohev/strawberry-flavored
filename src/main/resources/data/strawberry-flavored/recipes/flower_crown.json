@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FFF",
+    "S S"
+  ],
+  "key": {
+    "F": {
+      "tag": "minecraft:small_flowers"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "id": "strawberry-flavored:flower_crown",
+    "count": 1
+  }
+}

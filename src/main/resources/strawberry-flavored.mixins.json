@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "dev.strawberryflavored.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "FarmlandBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

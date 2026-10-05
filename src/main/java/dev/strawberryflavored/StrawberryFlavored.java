@@ -1,6 +1,7 @@
 package dev.strawberryflavored;
 
 import dev.strawberryflavored.armor.TrimBuffManager;
+import dev.strawberryflavored.item.FlowerCrownItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ public class StrawberryFlavored implements ModInitializer {
     @Override
     public void onInitialize() {
         TrimBuffManager.register();
+        FlowerCrownItems.initialize();
         LOGGER.info("Strawberry Flavored initialized.");
     }
 
