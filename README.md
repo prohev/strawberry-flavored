@@ -7,3 +7,9 @@ Armor Trim Behavior:
 - Lapis trim material: Speed I.
 - Quartz trim material: Speed I.
 - Other trim materials currently have no bonus.
+
+Feather Falling/Leather Boots:
+- Prevent crops from being Trampled.
+
+Added a flower crown!
+- crafted with smaller flowers around a piece of string.
