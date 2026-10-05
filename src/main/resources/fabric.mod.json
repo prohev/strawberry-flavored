@@ -14,8 +14,6 @@
 		"main": ["dev.strawberryflavored.StrawberryFlavored"]
 	},
 
-	"mixins": [""],
-
 	"depends": {
 		"fabricloader": "*",
 		"minecraft": "*",
