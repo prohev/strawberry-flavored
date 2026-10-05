@@ -28,7 +28,7 @@ public class FlowerCrownItem extends SimplePolymerItem implements PolymerItem {
             );
 
     public FlowerCrownItem(Item.Properties settings) {
-        super(settings, Items.GOLDEN_HELMET);
+        super(settings, Items.ECHO_SHARD);
     }
 
     @Override

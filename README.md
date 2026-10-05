@@ -13,3 +13,6 @@ Feather Falling/Leather Boots:
 
 Added a flower crown!
 - crafted with smaller flowers around a piece of string.
+
+Happy Ghast Treats!
+- Added a recipe of Honey Comb, Honey bottle, and sugar gives you a Happy Ghast Treats!
