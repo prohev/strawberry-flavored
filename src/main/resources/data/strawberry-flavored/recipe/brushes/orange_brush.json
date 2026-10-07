@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:brush",
+    "minecraft:orange_dye"
+  ],
+  "result": {
+    "id": "strawberry-flavored:orange_brush",
+    "count": 1
+  }
+}

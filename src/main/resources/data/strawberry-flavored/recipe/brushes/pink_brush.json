@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:brush",
+    "minecraft:pink_dye"
+  ],
+  "result": {
+    "id": "strawberry-flavored:pink_brush",
+    "count": 1
+  }
+}

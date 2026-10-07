@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:brush",
+    "minecraft:lime_dye"
+  ],
+  "result": {
+    "id": "strawberry-flavored:lime_brush",
+    "count": 1
+  }
+}

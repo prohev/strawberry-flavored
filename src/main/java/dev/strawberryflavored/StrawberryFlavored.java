@@ -1,6 +1,7 @@
 package dev.strawberryflavored;
 
 import dev.strawberryflavored.armor.TrimBuffManager;
+import dev.strawberryflavored.item.DyedBrushItems;
 import dev.strawberryflavored.item.FlowerCrownItems;
 import dev.strawberryflavored.item.HappyGhastTreatItems;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
@@ -20,6 +21,7 @@ public class StrawberryFlavored implements ModInitializer {
         TrimBuffManager.register();
         FlowerCrownItems.initialize();
         HappyGhastTreatItems.initialize();
+        DyedBrushItems.initialize();
         LOGGER.info("Strawberry Flavored initialized.");
     }
 

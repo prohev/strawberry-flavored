@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:brush",
+    "minecraft:cyan_dye"
+  ],
+  "result": {
+    "id": "strawberry-flavored:cyan_brush",
+    "count": 1
+  }
+}

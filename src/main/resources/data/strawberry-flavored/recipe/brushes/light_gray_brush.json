@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:brush",
+    "minecraft:light_gray_dye"
+  ],
+  "result": {
+    "id": "strawberry-flavored:light_gray_brush",
+    "count": 1
+  }
+}
