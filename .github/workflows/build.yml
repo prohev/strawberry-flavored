@@ -1,14 +1,17 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+# Build on every push and pull request. On push to main, bump the mod version
+# after a successful build and push that change back (skipped for bump commits).
 
 name: build
-on: [pull_request, push]
+on:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
       - name: checkout repository
         uses: actions/checkout@v6
@@ -19,6 +22,8 @@ jobs:
         with:
           java-version: '25'
           distribution: 'temurin'
+      - name: setup Gradle
+        uses: gradle/actions/setup-gradle@v6
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build
@@ -27,4 +32,48 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Artifacts
-          path: build/libs/
+          path: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
+            !build/libs/*-dev.jar
+
+  bump-version:
+    if: >
+      github.event_name == 'push'
+      && github.ref == 'refs/heads/main'
+      && github.actor != 'github-actions[bot]'
+      && !contains(github.event.head_commit.message, '[skip bump]')
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v6
+      - name: bump gradle.properties version
+        id: bump
+        run: |
+          set -euo pipefail
+          current="$(grep -E '^version=' gradle.properties | cut -d= -f2- | tr -d '\r')"
+          if [[ ! "$current" =~ ^([0-9.]+)-([0-9]+)\.([0-9]+)$ ]]; then
+            echo "Unexpected version format: $current (expected like 26.2-1.3)"
+            exit 1
+          fi
+          mc="${BASH_REMATCH[1]}"
+          major="${BASH_REMATCH[2]}"
+          minor="${BASH_REMATCH[3]}"
+          next="${mc}-${major}.$((minor + 1))"
+          sed -i "s/^version=${current}/version=${next}/" gradle.properties
+          echo "next=${next}" >> "$GITHUB_OUTPUT"
+          echo "Bumped version ${current} -> ${next}"
+      - name: commit and push version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gradle.properties
+          if git diff --staged --quiet; then
+            echo "No version change to commit"
+            exit 0
+          fi
+          git commit -m "chore: bump version to ${{ steps.bump.outputs.next }} [skip bump]"
+          git push
