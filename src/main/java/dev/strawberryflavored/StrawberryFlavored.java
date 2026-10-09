@@ -14,6 +14,9 @@ import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
+
 public class StrawberryFlavored implements ModInitializer {
     public static final String MOD_ID = "strawberry-flavored";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -34,6 +37,6 @@ public class StrawberryFlavored implements ModInitializer {
     }
 
     public static Identifier id(String path) {
-        return Identifier.fromNamespaceAndPath(MOD_ID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, Objects.requireNonNull(path, "path"));
     }
 }

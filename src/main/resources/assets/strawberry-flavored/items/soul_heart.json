@@ -1,1 +1,14 @@
-{"model":{"type":"minecraft:model","model":"strawberry-flavored:item/soul_heart"}}
+{
+    "model":  {
+        "type":  "minecraft:model",
+        "model":  "strawberry-flavored:item/soul_heart"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "custom_model_data": 1
+            },
+            "model": "strawberry-flavored:item/soul_heart"
+        }
+    ]
+}

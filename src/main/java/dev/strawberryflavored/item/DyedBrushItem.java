@@ -52,7 +52,7 @@ public class DyedBrushItem extends SimplePolymerItem implements PolymerItem {
             PacketContext context,
             HolderLookup.Provider lookup
     ) {
-        return StrawberryFlavored.id(color.getName() + "_brush");
+        return StrawberryFlavored.id("brushes/" + color.getName() + "_brush");
     }
 
     public static ResourceKey<Item> id(DyeColor color) {

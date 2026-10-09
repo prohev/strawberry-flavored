@@ -1,1 +1,11 @@
-{"type":"minecraft:crafting_shaped","pattern":["SSS","SES","SSS"],"key":{"S":{"item":"strawberry-flavored:soul_shard"},"E":{"item":"minecraft:echo_shard"}},"result":{"id":"strawberry-flavored:soul_shard","count":2}}
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "D": "minecraft:diamond",
+      "S": "strawberry-flavored:soul_shard",
+      "C": "minecraft:sculk_catalyst"
+    },
+    "pattern": ["DDD", "DSD", "DCD"],
+    "result": { "id": "strawberry-flavored:soul_shard", "count": 2 }
+  }

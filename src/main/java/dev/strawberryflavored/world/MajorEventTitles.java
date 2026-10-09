@@ -22,13 +22,6 @@ public final class MajorEventTitles {
     private static final int TITLE_FADE_IN = 10;
     private static final int TITLE_STAY = 75;
     private static final int TITLE_FADE_OUT = 30;
-    private static final AABB WORLD_BOUNDING_BOX = new AABB(
-            Double.NEGATIVE_INFINITY,
-            Double.NEGATIVE_INFINITY,
-            Double.NEGATIVE_INFINITY,
-            Double.POSITIVE_INFINITY,
-            Double.POSITIVE_INFINITY,
-            Double.POSITIVE_INFINITY);
     private static final Set<UUID> REVEALED_WITHERS = new HashSet<>();
     private static final Set<UUID> SHOWN_END_DRAGON_ALERTS = new HashSet<>();
 
@@ -41,7 +34,7 @@ public final class MajorEventTitles {
 
     private static void tick(MinecraftServer server) {
         for (ServerLevel level : server.getAllLevels()) {
-            for (WitherBoss wither : level.getEntitiesOfClass(WitherBoss.class, WORLD_BOUNDING_BOX, entity -> true)) {
+            for (WitherBoss wither : level.getEntitiesOfClass(WitherBoss.class, entitySearchBounds(level), entity -> true)) {
                 if (REVEALED_WITHERS.add(wither.getUUID())) {
                     showTitleToAllPlayers(server,
                             Component.literal("THE WITHER HAS AWAKENED").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD, ChatFormatting.ITALIC),
@@ -64,7 +57,25 @@ public final class MajorEventTitles {
     }
 
     private static boolean hasDragon(ServerLevel level) {
-        return !level.getEntitiesOfClass(EnderDragon.class, WORLD_BOUNDING_BOX, entity -> true).isEmpty();
+        return !level.getEntitiesOfClass(EnderDragon.class, entitySearchBounds(level), entity -> true).isEmpty();
+    }
+
+    /**
+     * EntitySectionStorage requires finite coordinates when converting an AABB
+     * to section bounds. The world border is the finite horizontal extent in
+     * which entities can normally exist; using the dimension's build height
+     * keeps the vertical extent finite as well.
+     */
+    private static AABB entitySearchBounds(ServerLevel level) {
+        var border = level.getWorldBorder();
+        var dimensionType = level.dimensionType();
+        return new AABB(
+                border.getMinX(),
+                dimensionType.minY(),
+                border.getMinZ(),
+                border.getMaxX(),
+                dimensionType.minY() + dimensionType.height(),
+                border.getMaxZ());
     }
 
     private static void showTitleToAllPlayers(MinecraftServer server, Component title, Component subtitle) {

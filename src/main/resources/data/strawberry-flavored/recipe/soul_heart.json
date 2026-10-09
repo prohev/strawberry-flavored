@@ -1,1 +1,11 @@
-{"type":"minecraft:crafting_shaped","pattern":["SSS","SES","SSS"],"key":{"S":{"item":"strawberry-flavored:soul_shard"},"E":{"item":"minecraft:enchanted_golden_apple"}},"result":{"id":"strawberry-flavored:soul_heart","count":1}}
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      "strawberry-flavored:soul_shard",
+      "minecraft:breeze_rod",
+      "minecraft:blaze_rod",
+      "minecraft:glow_berries"
+    ],
+    "result": { "id": "strawberry-flavored:soul_heart", "count": 1 }
+  }
