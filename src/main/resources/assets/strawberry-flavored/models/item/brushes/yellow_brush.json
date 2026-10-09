@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "strawberry-flavored:item/purple_brush"
+    "layer0": "strawberry-flavored:item/brushes/yellow_brush"
   }
 }

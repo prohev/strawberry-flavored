@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "strawberry-flavored:item/orange_brush"
+    "model": "strawberry-flavored:item/brushes/orange_brush"
   }
 }
