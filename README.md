@@ -22,6 +22,10 @@ Dyed Brushes!
 - Right-click wool, carpet, beds, terracotta, concrete, concrete powder, glass, glass panes, candles, shulker boxes, or banners to paint them that color.
 - Each dyed brush has 64 uses.
 
+Readable Clocks!
+- Holding a vanilla clock in either hand displays the Minecraft day and translated 12-hour time above the hotbar.
+- The display updates once per translated Minecraft minute and clears when the clock is no longer held.
+
 Versioning / GitHub:
 - `gradle.properties` version looks like `26.3-1.6` (Minecraft version, then mod version).
 - A commit containing `[build]` runs CI without changing the version.
