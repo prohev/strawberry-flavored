@@ -4,6 +4,7 @@ import dev.strawberryflavored.armor.TrimBuffManager;
 import dev.strawberryflavored.item.DyedBrushItems;
 import dev.strawberryflavored.item.FlowerCrownItems;
 import dev.strawberryflavored.item.HappyGhastTreatItems;
+import dev.strawberryflavored.world.MajorEventTitles;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
@@ -19,6 +20,7 @@ public class StrawberryFlavored implements ModInitializer {
         PolymerResourcePackUtils.addModAssets(MOD_ID);
 
         TrimBuffManager.register();
+        MajorEventTitles.register();
         FlowerCrownItems.initialize();
         HappyGhastTreatItems.initialize();
         DyedBrushItems.initialize();
