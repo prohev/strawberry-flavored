@@ -6,6 +6,8 @@
 - [x] Flower crowns (Currently does nothing beyond looking pretty).
 - [x] Happy Ghast treats (honey comb + honey bottle + sugar).
 - [x] Dyed brushes that can recolor dyeable blocks.
+- [x] Soul Hearts provide an extra heart, with Soul Shards available for crafting and duplication.
+- [x] Major events display titles, including summoning the Wither and entering the End.
 
 ## Planned / brainstorming
 - [ ] Totem works in the void: falling into the void with a totem in hand/offhand triggers a controllable float until you reach solid ground, or launches you back up with slow falling.

@@ -26,6 +26,13 @@ Readable Clocks!
 - Holding a vanilla clock in either hand displays the Minecraft day and translated 12-hour time above the hotbar.
 - The display updates once per translated Minecraft minute and clears when the clock is no longer held.
 
+Soul Hearts and Soul Shards!
+- Soul Hearts provide an extra heart while carried and can be crafted from Soul Shards.
+- Soul Shards can be duplicated with a Soul Heart and a diamond.
+
+Major Event Titles!
+- Major events, such as summoning the Wither or entering the End, display an on-screen title.
+
 Versioning / GitHub:
 - `gradle.properties` version looks like `26.3-1.6` (Minecraft version, then mod version).
 - A commit containing `[build]` runs CI without changing the version.
