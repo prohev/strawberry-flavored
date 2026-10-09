@@ -14,8 +14,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import java.util.Set;
 
-import dev.strawberryflavored.states.SoulHeartState;
 import dev.strawberryflavored.item.SoulHeartItems;
+import dev.strawberryflavored.states.SoulHeartState;
 
 public final class SoulHeartEvents {
     private static final Set<Identifier> SHARD_LOOT = Set.of(Identifier.withDefaultNamespace("chests/ancient_city"), Identifier.withDefaultNamespace("chests/ancient_city_ice_box"));

@@ -1,10 +1,10 @@
 package dev.strawberryflavored;
 
 import dev.strawberryflavored.armor.TrimBuffManager;
+import dev.strawberryflavored.event.SoulHeartEvents;
 import dev.strawberryflavored.item.DyedBrushItems;
 import dev.strawberryflavored.item.FlowerCrownItems;
 import dev.strawberryflavored.item.HappyGhastTreatItems;
-import dev.strawberryflavored.event.SoulHeartEvents;
 import dev.strawberryflavored.item.SoulHeartItems;
 import dev.strawberryflavored.world.MajorEventTitles;
 import dev.strawberryflavored.world.ReadableClocks;

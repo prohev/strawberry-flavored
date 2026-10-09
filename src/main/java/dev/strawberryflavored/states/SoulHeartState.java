@@ -2,7 +2,7 @@ package dev.strawberryflavored.states;
 
 import com.mojang.serialization.Codec;
 
-import dev.strawberryflavored.StrawberryFlavored;
+import dev.strawberryflavored.states.StrawberryFlavored;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
