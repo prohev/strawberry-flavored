@@ -23,7 +23,7 @@ Dyed Brushes!
 - Each dyed brush has 64 uses.
 
 Versioning / GitHub:
-- `gradle.properties` version looks like `26.2-1.3` (Minecraft version, then mod version).
-- Pushing to `main` runs CI, then bumps the last number (`26.2-1.3` -> `26.2-1.4`) and commits it.
-- Pull requests only build; they do not bump.
-- Put `[skip bump]` in a commit message to skip the automatic bump.
+- `gradle.properties` version looks like `26.3-1.6` (Minecraft version, then mod version).
+- A commit containing `[build]` runs CI without changing the version.
+- A commit containing `[release]` runs CI and, when pushed to `main`, bumps the last number (`26.3-1.6` -> `26.3-1.7`) and commits it.
+- Commits without `[build]` or `[release]` do not run the workflow.
