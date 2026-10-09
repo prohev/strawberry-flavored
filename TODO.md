@@ -23,7 +23,7 @@
 - [ ] Origins-inspired race selector.
 - [ ] Sniffer-related additions.
 - [ ] Skeleton wolf.
-- [ ] Rose gold (copper + gold).
 - [ ] Trinkets.
+- [ ] Rose gold (copper + gold) for Trinkets.
 - [ ] End-related content.
 - [ ] Fishing content.

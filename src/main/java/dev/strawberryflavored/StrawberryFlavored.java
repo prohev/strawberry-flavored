@@ -4,6 +4,8 @@ import dev.strawberryflavored.armor.TrimBuffManager;
 import dev.strawberryflavored.item.DyedBrushItems;
 import dev.strawberryflavored.item.FlowerCrownItems;
 import dev.strawberryflavored.item.HappyGhastTreatItems;
+import dev.strawberryflavored.soulshard.SoulHeartEvents;
+import dev.strawberryflavored.soulshard.SoulHeartItems;
 import dev.strawberryflavored.world.MajorEventTitles;
 import dev.strawberryflavored.world.ReadableClocks;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
@@ -26,6 +28,8 @@ public class StrawberryFlavored implements ModInitializer {
         FlowerCrownItems.initialize();
         HappyGhastTreatItems.initialize();
         DyedBrushItems.initialize();
+        SoulHeartItems.initialize();
+        SoulHeartEvents.register();
         LOGGER.info("Strawberry Flavored initialized.");
     }
 
