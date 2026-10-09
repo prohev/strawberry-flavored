@@ -1,4 +1,4 @@
-package dev.strawberryflavored.soulshard;
+package dev.strawberryflavored.states;
 
 import com.mojang.serialization.Codec;
 

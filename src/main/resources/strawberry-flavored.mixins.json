@@ -5,8 +5,8 @@
   "mixins": [
     "FarmlandBlockMixin",
     "ThrownSplashPotionMixin"
-    ,"dev.strawberryflavored.soulshard.SoulHeartPlayerMixin",
-    "dev.strawberryflavored.soulshard.SoulHeartServerPlayerMixin"
+    ,"SoulHeartPlayerMixin",
+    "SoulHeartServerPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

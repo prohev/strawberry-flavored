@@ -1,6 +1,5 @@
-package dev.strawberryflavored.soulshard;
+package dev.strawberryflavored.event;
 
-import dev.strawberryflavored.soulshard.SoulHeartState;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.ChatFormatting;
@@ -14,6 +13,9 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import java.util.Set;
+
+import dev.strawberryflavored.states.SoulHeartState;
+import dev.strawberryflavored.item.SoulHeartItems;
 
 public final class SoulHeartEvents {
     private static final Set<Identifier> SHARD_LOOT = Set.of(Identifier.withDefaultNamespace("chests/ancient_city"), Identifier.withDefaultNamespace("chests/ancient_city_ice_box"));

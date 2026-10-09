@@ -1,5 +1,4 @@
-package dev.strawberryflavored.soulshard;
-import dev.strawberryflavored.soulshard.SoulHeartState;
+package dev.strawberryflavored.mixin;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -7,6 +6,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import dev.strawberryflavored.states.SoulHeartState;
 @Mixin(Player.class)
 public abstract class SoulHeartPlayerMixin {
     @Inject(method = "dropEquipment", at = @At("HEAD"), cancellable = true)

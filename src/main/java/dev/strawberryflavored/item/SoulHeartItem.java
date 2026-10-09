@@ -1,6 +1,6 @@
-package dev.strawberryflavored.soulshard;
+package dev.strawberryflavored.item;
 
-import dev.strawberryflavored.soulshard.SoulHeartState;
+import dev.strawberryflavored.states.SoulHeartState;
 import eu.pb4.polymer.core.api.item.SimplePolymerItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;

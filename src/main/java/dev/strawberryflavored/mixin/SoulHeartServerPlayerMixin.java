@@ -1,5 +1,4 @@
-package dev.strawberryflavored.soulshard;
-import dev.strawberryflavored.soulshard.SoulHeartState;
+package dev.strawberryflavored.mixin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,6 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import dev.strawberryflavored.states.SoulHeartState;
 @Mixin(ServerPlayer.class)
 public abstract class SoulHeartServerPlayerMixin {
     @Inject(method = "restoreFrom", at = @At("TAIL"))
