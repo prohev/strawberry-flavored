@@ -33,6 +33,6 @@ public abstract class FarmlandBlockMixin {
             return;
         }
 
-        original.call(entity, state, level, pos);
+        original.call(self, entity, state, level, pos);
     }
 }

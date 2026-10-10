@@ -1,6 +1,6 @@
 Strawberry Flavored - Everything is server-side; clients do not need Strawberry Flavored installed.
 
-Armor Trim Behavior:
+Armor Trim Buffs!
 - Full 4-piece set with the same trim material is required.
 - Trim pattern does not matter.
 - Redstone trim material: Regeneration I.
@@ -8,27 +8,26 @@ Armor Trim Behavior:
 - Quartz trim material: Speed I.
 - Other trim materials currently have no bonus.
 
-Feather Falling/Leather Boots!
-- Prevent crops from being Trampled.
+Anti Crop trampling!
+- Boots with the Feather Falling Enchantment will not trample crops!
+- Due to being "cushioned" and having a softer blow.
+- Leather Boots have this effect inheritaly
 
 Added a flower crown!
 - crafted with smaller flowers around a piece of string.
 
 Happy Ghast Treats!
-- Added a recipe of Honey Comb, Honey bottle, and sugar gives you a Happy Ghast Treats!
+- Shapeless: Honeycomb, Honey Bottle, and Sugar.
+- These treats increase the speed of Happy Ghasts for 5 mins! Feeding again will reset the timer.
 
 Dyed Brushes!
 - Shapeless: a vanilla brush + any dye.
-- Right-click wool, carpet, beds, terracotta, concrete, concrete powder, glass, glass panes, candles, shulker boxes, or banners to paint them that color.
+- Right-click (you can hold) wool, carpet, beds, terracotta, concrete, concrete powder, glass, glass panes, candles, shulker boxes, or banners to paint them that color.
 - Each dyed brush has 64 uses.
 
-Readable Clocks!
-- Holding a vanilla clock in either hand displays the Minecraft day and translated 12-hour time above the hotbar.
-- The display updates once per translated Minecraft minute and clears when the clock is no longer held.
-
 Soul Hearts and Soul Shards!
-- Soul Hearts provide an extra heart while carried and can be crafted from Soul Shards.
-- Soul Shards can be duplicated with a Soul Heart and a diamond.
+- Soul Hearts provide "keepInventory=true" when consumed and can be crafted from Soul Shard, Blaze Rod, Breeze Rod, and a Glow Berry.
+- Soul Shards can be duplicated like a template with the base block being a Sculk Catalyst.
 
 Major Event Titles!
 - Major events, such as summoning the Wither or entering the End, display an on-screen title.
