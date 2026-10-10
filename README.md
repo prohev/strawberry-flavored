@@ -32,11 +32,14 @@
 <details>
 <summary><strong>Flower Crown</strong></summary>
 
+<p align="left">
+  <img src="readme-images/flower_crown_item.png" alt="Flower Crown item" width="128">
+</p>
+
 - Crafted with smaller flowers around a piece of string.
 
 <p align="center">
-  <img src="src/main/resources/assets/strawberry-flavored/textures/item/flower_crown.png" alt="Flower Crown item" width="128">
-  <img src="readme-images/flower_crown_README.png" alt="Flower Crown in-game screenshot" width="800">
+  <img src="readme-images/flower_crown_README.png" alt="Flower Crown in-game screenshot" width="600">
 </p>
 
 
@@ -45,40 +48,43 @@
 <details>
 <summary><strong>Happy Ghast Treats</strong></summary>
 
+<p align="left">
+  <img src="readme-images/happy_ghast_treat_item.png" alt="Happy Ghast Treat item" width="128">
+</p>
+
 - Shapeless recipe: Honeycomb, Honey Bottle, and Sugar.
 - Treats increase the speed of Happy Ghasts for five minutes.
 - Feeding a Happy Ghast again resets the timer.
-
-<p align="center">
-  <img src="src/main/resources/assets/strawberry-flavored/textures/item/happy_ghast_treat.png" alt="Happy Ghast Treat item" width="128">
-</p>
 
 </details>
 
 <details>
 <summary><strong>Dyed Brushes</strong></summary>
 
+<p align="left">
+  <img src="readme-images/red_brush_item.png" alt="Red dyed brush item" width="128">
+</p>
+
 - Shapeless recipe: a vanilla brush and any dye.
 - Hold right-click to paint wool, carpet, beds, terracotta, concrete, concrete powder, glass, glass panes, candles, shulker boxes, or banners.
 - Each dyed brush has 64 uses.
-
-<p align="center">
-  <img src="src/main/resources/assets/strawberry-flavored/textures/item/brushes/red_brush.png" alt="Red dyed brush item" width="128">
-</p>
 
 </details>
 
 <details>
 <summary><strong>Soul Hearts and Soul Shards</strong></summary>
 
-- Soul Hearts provide `keepInventory=true` when consumed.
-- Soul Hearts are crafted from a Soul Shard, Blaze Rod, Breeze Rod, and Glow Berries.
-- Soul Shards can be duplicated like a template, using a Sculk Catalyst as the base block.
-
-<p align="center">
-  <img src="src/main/resources/assets/strawberry-flavored/textures/item/soul_heart.png" alt="Soul Heart item" width="128">
-  <img src="src/main/resources/assets/strawberry-flavored/textures/item/soul_shard.png" alt="Soul Shard item" width="128">
+<p align="left">
+  <img src="readme-images/soul_heart_item.png" alt="Soul Heart item" width="128">
 </p>
+
+- Soul Hearts are crafted from a Soul Shard, Blaze Rod, Breeze Rod, and Glow Berries.
+- Soul Hearts provide `keepInventory=true` when consumed.
+<p align="left">
+  <img src="readme-images/soul_shard_item.png" alt="Soul Shard item" width="128">
+</p>
+
+- Soul Shards can be duplicated like a template, using a Sculk Catalyst as the base block.
 
 </details>
 
