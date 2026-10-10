@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/main/resources/assets/icon.png" alt="Strawberry Flavored icon" width="320">
+  <img src="src/main/resources/assets/icon.png" alt="Strawberry Flavored icon" width="640">
 </p>
 
 <p align="center">
@@ -78,7 +78,7 @@
   <img src="readme-images/soul_heart_item.png" alt="Soul Heart item" width="128">
 </p>
 
-- Soul Hearts are crafted from a Soul Shard, Blaze Rod, Breeze Rod, and Glow Berries.
+- Soul Hearts are shapless from a Soul Shard, Blaze Rod, Breeze Rod, and Glow Berries.
 - Soul Hearts provide `keepInventory=true` when consumed.
 <p align="left">
   <img src="readme-images/soul_shard_item.png" alt="Soul Shard item" width="128">
