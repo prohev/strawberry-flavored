@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="src/main/resources/assets/icon.png" alt="Strawberry Flavored icon" width="160">
+  <img src="src/main/resources/assets/icon.png" alt="Strawberry Flavored icon" width="320">
 </p>
-
-<h1 align="center">Strawberry Flavored</h1>
 
 <p align="center">
   A collection of small quality-of-life features for Minecraft.
@@ -20,8 +18,6 @@
 - Lapis and quartz trim materials grant Speed I.
 - Other trim materials currently have no bonus.
 
-<!-- Image placeholder: add an armor-trim screenshot here. -->
-![Armor trim screenshot placeholder](https://placehold.co/800x450?text=Armor+Trim+Screenshot)
 
 </details>
 
@@ -31,9 +27,6 @@
 - Boots with the Feather Falling enchantment will not trample crops.
 - Leather Boots have this effect inherently.
 
-<!-- Image placeholder: add an anti-trampling screenshot here. -->
-![Anti-trampling screenshot placeholder](https://placehold.co/800x450?text=Anti-Trampling+Screenshot)
-
 </details>
 
 <details>
@@ -41,8 +34,11 @@
 
 - Crafted with smaller flowers around a piece of string.
 
-<!-- Image placeholder: add a flower-crown screenshot here. -->
-![Flower crown screenshot placeholder](https://placehold.co/800x450?text=Flower+Crown+Screenshot)
+<p align="center">
+  <img src="src/main/resources/assets/strawberry-flavored/textures/item/flower_crown.png" alt="Flower Crown item" width="128">
+  <img src="readme-images/flower_crown_README.png" alt="Flower Crown in-game screenshot" width="800">
+</p>
+
 
 </details>
 
@@ -53,8 +49,9 @@
 - Treats increase the speed of Happy Ghasts for five minutes.
 - Feeding a Happy Ghast again resets the timer.
 
-<!-- Image placeholder: add a Happy Ghast screenshot here. -->
-![Happy Ghast screenshot placeholder](https://placehold.co/800x450?text=Happy+Ghast+Screenshot)
+<p align="center">
+  <img src="src/main/resources/assets/strawberry-flavored/textures/item/happy_ghast_treat.png" alt="Happy Ghast Treat item" width="128">
+</p>
 
 </details>
 
@@ -65,25 +62,23 @@
 - Hold right-click to paint wool, carpet, beds, terracotta, concrete, concrete powder, glass, glass panes, candles, shulker boxes, or banners.
 - Each dyed brush has 64 uses.
 
-<!-- Image placeholder: add a dyed-brush screenshot here. -->
-![Dyed brushes screenshot placeholder](https://placehold.co/800x450?text=Dyed+Brushes+Screenshot)
+<p align="center">
+  <img src="src/main/resources/assets/strawberry-flavored/textures/item/brushes/red_brush.png" alt="Red dyed brush item" width="128">
+</p>
 
 </details>
 
 <details>
 <summary><strong>Soul Hearts and Soul Shards</strong></summary>
 
-<p>
-  <img src="src/main/resources/assets/strawberry-flavored/textures/item/soul_heart.png" alt="Soul Heart" width="48">
-  <img src="src/main/resources/assets/strawberry-flavored/textures/item/soul_shard.png" alt="Soul Shard" width="48">
-</p>
-
 - Soul Hearts provide `keepInventory=true` when consumed.
 - Soul Hearts are crafted from a Soul Shard, Blaze Rod, Breeze Rod, and Glow Berries.
 - Soul Shards can be duplicated like a template, using a Sculk Catalyst as the base block.
 
-<!-- Image placeholder: add a Soul Hearts/Soul Shards screenshot here. -->
-![Soul items screenshot placeholder](https://placehold.co/800x450?text=Soul+Hearts+%26+Soul+Shards)
+<p align="center">
+  <img src="src/main/resources/assets/strawberry-flavored/textures/item/soul_heart.png" alt="Soul Heart item" width="128">
+  <img src="src/main/resources/assets/strawberry-flavored/textures/item/soul_shard.png" alt="Soul Shard item" width="128">
+</p>
 
 </details>
 
@@ -92,10 +87,8 @@
 
 - Major events, such as summoning the Wither or entering the End, display an on-screen title.
 
-<!-- Image placeholder: add a major-event screenshot here. -->
-![Major event title screenshot placeholder](https://placehold.co/800x450?text=Major+Event+Title)
-
 </details>
+
 
 ## Versioning / GitHub
 
