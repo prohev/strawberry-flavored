@@ -7,6 +7,7 @@ import dev.strawberryflavored.item.FlowerCrownItems;
 import dev.strawberryflavored.item.HappyGhastTreatItems;
 import dev.strawberryflavored.item.SoulHeartItems;
 import dev.strawberryflavored.world.MajorEventTitles;
+import dev.strawberryflavored.food.FoodContent;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
@@ -30,6 +31,7 @@ public class StrawberryFlavored implements ModInitializer {
         HappyGhastTreatItems.initialize();
         DyedBrushItems.initialize();
         SoulHeartItems.initialize();
+        FoodContent.initialize();
         SoulHeartEvents.register();
         LOGGER.info("Strawberry Flavored initialized.");
     }

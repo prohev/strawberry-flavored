@@ -4,7 +4,7 @@
 
 <p align="center">
   A collection of small quality-of-life features for Minecraft.
-  Everything is server-side; clients do not need Strawberry Flavored installed.
+  Everything is server-side using Polymer; clients do not need Strawberry Flavored installed.
 </p>
 
 ## Features
@@ -18,6 +18,16 @@
 - Lapis and quartz trim materials grant Speed I.
 - Other trim materials currently have no bonus.
 
+
+</details>
+
+<details>
+<summary><strong>Food and Farming</strong></summary>
+
+- Corn is a two-block crop that grows from corn kernels and is broken like a normal harvested crop.
+- Corn can be converted back into corn kernels, milled into masa, and baked into tortillas.
+- Cooked pork or cooked steak can be combined with tortillas to make tacos.
+- Apple fritters use flour, baked apple, and sugar.
 
 </details>
 
@@ -97,6 +107,14 @@
 
 
 ## Versioning / GitHub
+
+## Cooking Machines
+
+The oven, pot, and millstone use native server-side container menus. Players
+can insert valid ingredients and collect outputs without installing
+Strawberry Flavored or Polymer. The oven is
+represented to vanilla clients by an unlit campfire and the pot by a cauldron;
+these are network fallbacks only.
 
 - The version in `gradle.properties` looks like `26.3-1.6`: Minecraft version, then mod version.
 - A commit containing `[build]` runs CI without changing the version.

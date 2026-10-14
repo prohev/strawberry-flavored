@@ -1,0 +1,1 @@
+{"type":"minecraft:block","pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"strawberry-flavored:corn_kernels"}]},{"rolls":1,"entries":[{"type":"minecraft:item","name":"strawberry-flavored:corn"}],"conditions":[{"condition":"minecraft:block_state_property","block":"strawberry-flavored:corn","properties":{"age":"7"}}]}]}
