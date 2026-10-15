@@ -1,0 +1,29 @@
+{
+  "providers": [
+    {
+      "type": "space",
+      "advances": {"a": -8, "c": -168}
+    },
+    {
+      "type": "bitmap",
+      "file": "strawberry-flavored:sgui/pot.png",
+      "ascent": 13,
+      "height": 256,
+      "chars": ["b"]
+    },
+    {
+      "type": "bitmap",
+      "file": "strawberry-flavored:sgui/oven.png",
+      "ascent": 13,
+      "height": 256,
+      "chars": ["d"]
+    },
+    {
+      "type": "bitmap",
+      "file": "strawberry-flavored:sgui/millstone.png",
+      "ascent": 13,
+      "height": 256,
+      "chars": ["e"]
+    }
+  ]
+}

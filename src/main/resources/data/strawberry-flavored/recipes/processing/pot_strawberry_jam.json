@@ -1,1 +1,1 @@
-{"station":"pot","input":"strawberry-flavored:strawberry","output":"strawberry-flavored:strawberry_jam","duration":100}
+{"station":"pot","inputs":["strawberry-flavored:strawberry","minecraft:sugar"],"output":"strawberry-flavored:strawberry_jam","duration":100}

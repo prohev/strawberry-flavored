@@ -21,7 +21,8 @@
     "java": ">=25",
     "fabric-api": "*",
     "polymer-core": "*",
-    "polymer-resource-pack": "*"
+    "polymer-resource-pack": "*",
+    "polydex": "*"
   },
   "mixins": [
     "strawberry-flavored.mixins.json"
