@@ -1,7 +1,7 @@
 package dev.strawberryflavored.food.registry;
 
 import dev.strawberryflavored.StrawberryFlavored;
-import dev.strawberryflavored.food.block.FoodMachineBlock;
+import dev.strawberryflavored.processing.block.FoodMachineBlock;
 import dev.strawberryflavored.food.crop.CornCropBlock;
 import dev.strawberryflavored.food.crop.CornTopBlock;
 import dev.strawberryflavored.food.crop.BerryBushBlock;
@@ -41,15 +41,15 @@ public final class FoodBlocks {
     public static final Block MILLSTONE = registerBlock("millstone", Blocks.STONE);
     // An unlit campfire is an interactable, familiar vanilla representation.
     public static final Block OVEN = registerBlock("oven", Blocks.CAMPFIRE, FoodMachineBlock.Station.OVEN);
-    public static final Block POT = registerBlock("pot", Blocks.CAULDRON, dev.strawberryflavored.food.block.FoodMachineBlock.Station.POT);
+    public static final Block POT = registerBlock("pot", Blocks.CAULDRON, dev.strawberryflavored.processing.block.FoodMachineBlock.Station.POT);
 
     private FoodBlocks() {}
 
     private static Block registerBlock(String name, Block vanilla) {
-        return registerBlock(name, vanilla, vanilla == Blocks.FURNACE ? dev.strawberryflavored.food.block.FoodMachineBlock.Station.OVEN : dev.strawberryflavored.food.block.FoodMachineBlock.Station.MILLSTONE);
+        return registerBlock(name, vanilla, vanilla == Blocks.FURNACE ? dev.strawberryflavored.processing.block.FoodMachineBlock.Station.OVEN : dev.strawberryflavored.processing.block.FoodMachineBlock.Station.MILLSTONE);
     }
 
-    private static Block registerBlock(String name, Block vanilla, dev.strawberryflavored.food.block.FoodMachineBlock.Station station) {
+    private static Block registerBlock(String name, Block vanilla, dev.strawberryflavored.processing.block.FoodMachineBlock.Station station) {
         ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, StrawberryFlavored.id(name));
         Block block = Registry.register(BuiltInRegistries.BLOCK, blockKey,
                 new FoodMachineBlock(machineProperties(vanilla, blockKey), vanilla, station));

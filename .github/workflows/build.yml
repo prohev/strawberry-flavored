@@ -33,6 +33,8 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
+      - name: lint
+        run: ./gradlew checkstyleMain
       - name: build
         run: ./gradlew build
       - name: capture build artifacts

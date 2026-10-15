@@ -1,7 +1,7 @@
-package dev.strawberryflavored.food.block;
+package dev.strawberryflavored.processing.block;
 
 import dev.strawberryflavored.StrawberryFlavored;
-import dev.strawberryflavored.food.registry.FoodBlockEntities;
+import dev.strawberryflavored.processing.registry.FoodBlockEntities;
 import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
 import eu.pb4.polymer.core.api.block.PolymerBlock;
 import eu.pb4.polymer.core.api.block.SimplePolymerBlock;
@@ -11,7 +11,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
-import dev.strawberryflavored.food.ui.FoodMachineGui;
+import dev.strawberryflavored.processing.ui.FoodMachineGui;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;

@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityLevelChangeEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
@@ -29,53 +30,45 @@ public final class MajorEventTitles {
     }
 
     public static void register() {
-        ServerTickEvents.END_SERVER_TICK.register(MajorEventTitles::tick);
-    }
+        ServerEntityEvents.ENTITY_LOAD.register((entity, level) -> {
+            if (entity instanceof WitherBoss wither && REVEALED_WITHERS.add(wither.getUUID())) {
+                showTitleToAllPlayers(level.getServer(),
+                        Component.literal("THE WITHER HAS AWAKENED").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD, ChatFormatting.ITALIC),
+                        Component.literal("The world trembles").withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC));
+            }
 
-    private static void tick(MinecraftServer server) {
-        for (ServerLevel level : server.getAllLevels()) {
-            for (WitherBoss wither : level.getEntitiesOfClass(WitherBoss.class, entitySearchBounds(level), entity -> true)) {
-                if (REVEALED_WITHERS.add(wither.getUUID())) {
-                    showTitleToAllPlayers(server,
-                            Component.literal("THE WITHER HAS AWAKENED").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD, ChatFormatting.ITALIC),
-                            Component.literal("The world trembles").withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC));
+            if (entity instanceof EnderDragon dragon && level.dimension() == Level.END) {
+                for (ServerPlayer player : level.players()) {
+                    showDragonAlert(player);
                 }
             }
-        }
+        });
 
-        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            if (player.level().dimension() == Level.END) {
-                if (hasDragon(player.level()) && SHOWN_END_DRAGON_ALERTS.add(player.getUUID())) {
-                    showTitle(player,
-                            Component.literal("THE END").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD, ChatFormatting.ITALIC),
-                            Component.literal("The dragon watches").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC));
+        ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((player, origin, destination) -> {
+            if (destination.dimension() == Level.END) {
+                if (hasDragon(destination)) {
+                    showDragonAlert(player);
                 }
             } else {
                 SHOWN_END_DRAGON_ALERTS.remove(player.getUUID());
             }
+        });
+    }
+
+    private static void showDragonAlert(ServerPlayer player) {
+        if (SHOWN_END_DRAGON_ALERTS.add(player.getUUID())) {
+            showTitle(player,
+                    Component.literal("THE END").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD, ChatFormatting.ITALIC),
+                    Component.literal("The dragon watches").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC));
         }
     }
 
     private static boolean hasDragon(ServerLevel level) {
-        return !level.getEntitiesOfClass(EnderDragon.class, entitySearchBounds(level), entity -> true).isEmpty();
-    }
-
-    /**
-     * EntitySectionStorage requires finite coordinates when converting an AABB
-     * to section bounds. The world border is the finite horizontal extent in
-     * which entities can normally exist; using the dimension's build height
-     * keeps the vertical extent finite as well.
-     */
-    private static AABB entitySearchBounds(ServerLevel level) {
-        var border = level.getWorldBorder();
         var dimensionType = level.dimensionType();
-        return new AABB(
-                border.getMinX(),
-                dimensionType.minY(),
-                border.getMinZ(),
-                border.getMaxX(),
-                dimensionType.minY() + dimensionType.height(),
-                border.getMaxZ());
+        return !level.getEntitiesOfClass(EnderDragon.class,
+                new AABB(-256, dimensionType.minY(), -256, 256,
+                        dimensionType.minY() + dimensionType.height(), 256),
+                entity -> true).isEmpty();
     }
 
     private static void showTitleToAllPlayers(MinecraftServer server, Component title, Component subtitle) {

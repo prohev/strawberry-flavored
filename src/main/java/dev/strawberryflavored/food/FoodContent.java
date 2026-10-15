@@ -2,8 +2,8 @@ package dev.strawberryflavored.food;
 
 import dev.strawberryflavored.food.item.FoodItems;
 import dev.strawberryflavored.food.registry.FoodBlocks;
-import dev.strawberryflavored.food.registry.FoodBlockEntities;
-import dev.strawberryflavored.food.recipe.FoodProcessingRecipes;
+import dev.strawberryflavored.processing.registry.FoodBlockEntities;
+import dev.strawberryflavored.processing.recipe.FoodProcessingRecipes;
 
 /** Entry point for the food module.  Keeping this call in one place makes the
  * module easy to extend without growing the root initializer. */

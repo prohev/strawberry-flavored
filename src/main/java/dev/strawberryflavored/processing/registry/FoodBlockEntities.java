@@ -1,8 +1,9 @@
-package dev.strawberryflavored.food.registry;
+package dev.strawberryflavored.processing.registry;
 
 import dev.strawberryflavored.StrawberryFlavored;
-import dev.strawberryflavored.food.block.FoodMachineBlockEntity;
-import dev.strawberryflavored.food.block.FoodMachineBlock;
+import dev.strawberryflavored.food.registry.FoodBlocks;
+import dev.strawberryflavored.processing.block.FoodMachineBlockEntity;
+import dev.strawberryflavored.processing.block.FoodMachineBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

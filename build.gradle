@@ -1,10 +1,17 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
+	id 'checkstyle'
+}
+
+checkstyle {
+	toolVersion = '12.1.2'
+	configFile = file('config/checkstyle/checkstyle.xml')
 }
 
 repositories {
 	maven { url = "https://maven.nucleoid.xyz/" }
+	maven { url = "https://api.modrinth.com/maven" }
 }
 
 dependencies {
@@ -19,8 +26,12 @@ dependencies {
 	implementation "eu.pb4:polymer-core:[${polymer_version}]"
 	implementation "eu.pb4:polymer-blocks:[${polymer_version}]"
     implementation "eu.pb4:polymer-resource-pack:[${polymer_version}]"
+    implementation "eu.pb4:polymer-resource-pack-extras:[${polymer_version}]"
 	implementation "eu.pb4:polymer-autohost:[${polymer_version}]"
 	implementation include("eu.pb4:sgui:${sgui_version}")
+
+	// Required server utility for recipe discovery and Polymer-compatible recipe viewing.
+	implementation "maven.modrinth:m5NB7FJE:${polydex_version}"
 }
 
 processResources {

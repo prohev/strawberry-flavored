@@ -1,14 +1,14 @@
-package dev.strawberryflavored.food.block;
+package dev.strawberryflavored.processing.block;
 
-import dev.strawberryflavored.food.recipe.FoodProcessingRecipes;
-import dev.strawberryflavored.food.recipe.ProcessingRecipe;
-import dev.strawberryflavored.food.ui.FoodMachineMenu;
+import dev.strawberryflavored.processing.recipe.FoodProcessingRecipes;
+import dev.strawberryflavored.processing.recipe.ProcessingRecipe;
+import dev.strawberryflavored.processing.ui.FoodMachineMenu;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ValueInput;
@@ -28,10 +29,10 @@ import java.util.List;
 /** Persistent machine inventory: input in slot 0 and output in slot 4. */
 public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
     public static final int INPUT_SLOT = 0;
-    public static final int INPUT_SLOT_COUNT = 4;
-    public static final int STATUS_SLOT = 4;
-    public static final int OUTPUT_SLOT = 5;
-    private static final int SIZE = 6;
+    public static final int INPUT_SLOT_COUNT = 6;
+    public static final int STATUS_SLOT = 6;
+    public static final int OUTPUT_SLOT = 7;
+    private static final int SIZE = 8;
     private final FoodMachineBlock.Station station;
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
     private int progress;
@@ -76,7 +77,9 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
                     "container.strawberry-flavored.fuel_remaining", burnRemaining));
         } else if (progress > 0 && duration() > 0) {
             int count = Math.max(1, Math.min(4, (progress * 4 + duration() - 1) / duration()));
-            indicator = new ItemStack(Items.CLOCK, count);
+            // The GUI renders the virtual SGUI progress element; this server
+            // slot only retains progress/tooltip state for synchronization.
+            indicator = new ItemStack(Items.CLOCK);
             indicator.set(DataComponents.ITEM_NAME, Component.translatable(
                     "container.strawberry-flavored.progress", progress, duration()));
         } else {
@@ -142,11 +145,6 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
-        return new FoodMachineMenu(id, inventory, this);
-    }
-
-    @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         ContainerHelper.loadAllItems(input, items);
@@ -169,12 +167,20 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
 
     public boolean isOven() { return station == FoodMachineBlock.Station.OVEN; }
     public boolean isMillstone() { return station == FoodMachineBlock.Station.MILLSTONE; }
+    public boolean isPot() { return station == FoodMachineBlock.Station.POT; }
+    public boolean isHeated() { return isHeatedByOven(); }
     public int burnRemaining() { return burnRemaining; }
     public int burnTotal() { return burnTotal; }
 
     public ItemStack previewStack() {
         ProcessingRecipe recipe = recipe();
         return recipe == null ? ItemStack.EMPTY : new ItemStack(recipe.output());
+    }
+
+    /** Required by BaseContainerBlockEntity; normal station interaction uses SGUI. */
+    @Override
+    protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
+        return new FoodMachineMenu(id, inventory, this);
     }
 
     public boolean stillValid(Player player) {
@@ -184,8 +190,13 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
     }
 
     private boolean isHeatedByOven() {
-        return level != null && level.getBlockState(worldPosition.below())
-                .is(dev.strawberryflavored.food.registry.FoodBlocks.OVEN);
+        if (level == null) return false;
+        BlockState below = level.getBlockState(worldPosition.below());
+        if (below.is(dev.strawberryflavored.food.registry.FoodBlocks.OVEN)) return true;
+        if (below.is(Blocks.CAMPFIRE) || below.is(Blocks.SOUL_CAMPFIRE)) {
+            return below.getValue(BlockStateProperties.LIT);
+        }
+        return below.is(Blocks.FIRE);
     }
 
     private static int fuelDuration(ItemStack stack) {

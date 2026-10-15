@@ -1,4 +1,4 @@
-package dev.strawberryflavored.food.recipe;
+package dev.strawberryflavored.processing.recipe;
 
 import dev.strawberryflavored.food.item.FoodItems;
 import dev.strawberryflavored.food.registry.FoodBlocks;
@@ -36,10 +36,14 @@ public final class FoodProcessingRecipes {
             new ProcessingRecipe(Items.EGG, FoodItems.FRIED_EGG, 120)
     );
     public static volatile List<ProcessingRecipe> POT = List.of(
-            new ProcessingRecipe(FoodBlocks.RICE_ITEM, FoodItems.COOKED_RICE, 100)
+            new ProcessingRecipe("pot", List.of(FoodBlocks.RICE_ITEM), FoodItems.COOKED_RICE, 100, null),
+            new ProcessingRecipe("pot", List.of(Items.APPLE, Items.SUGAR), FoodItems.APPLE_JAM, 100, null),
+            new ProcessingRecipe("pot", List.of(Items.SWEET_BERRIES, Items.SUGAR), FoodItems.SWEET_BERRY_JAM, 100, null),
+            new ProcessingRecipe("pot", List.of(FoodItems.STRAWBERRY, Items.SUGAR), FoodItems.STRAWBERRY_JAM, 100, null),
+            new ProcessingRecipe("pot", List.of(FoodItems.BLUEBERRY, Items.SUGAR), FoodItems.BLUEBERRY_JAM, 100, null)
     );
 
-    public static List<ProcessingRecipe> forStation(dev.strawberryflavored.food.block.FoodMachineBlock.Station station) {
+    public static List<ProcessingRecipe> forStation(dev.strawberryflavored.processing.block.FoodMachineBlock.Station station) {
         return switch (station) { case OVEN -> OVEN; case MILLSTONE -> MILLSTONE; case POT -> POT; };
     }
 

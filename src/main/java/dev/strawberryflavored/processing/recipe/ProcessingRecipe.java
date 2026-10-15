@@ -1,4 +1,4 @@
-package dev.strawberryflavored.food.recipe;
+package dev.strawberryflavored.processing.recipe;
 
 import net.minecraft.world.item.Item;
 import java.util.List;
