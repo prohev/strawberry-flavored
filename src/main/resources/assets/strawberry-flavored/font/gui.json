@@ -2,11 +2,11 @@
   "providers": [
     {
       "type": "space",
-      "advances": {"a": -8, "c": -168}
+      "advances": {"a": -8, "c": -168, "h": 156}
     },
     {
       "type": "bitmap",
-      "file": "strawberry-flavored:sgui/pot.png",
+      "file": "strawberry-flavored:sgui/cooking_pot.png",
       "ascent": 13,
       "height": 256,
       "chars": ["b"]
@@ -24,6 +24,13 @@
       "ascent": 13,
       "height": 256,
       "chars": ["e"]
+    },
+    {
+      "type": "bitmap",
+      "file": "strawberry-flavored:sgui/polydex/1.png",
+      "ascent": -4,
+      "height": 128,
+      "chars": ["f"]
     }
   ]
 }

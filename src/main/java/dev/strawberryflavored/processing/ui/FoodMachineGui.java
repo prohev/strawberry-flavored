@@ -1,6 +1,7 @@
 package dev.strawberryflavored.processing.ui;
 
 import dev.strawberryflavored.processing.block.FoodMachineBlockEntity;
+import dev.strawberryflavored.processing.polydex.ProcessingPolydex;
 import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.server.level.ServerPlayer;
@@ -8,7 +9,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-/** Common server-side SGUI screen for the oven, millstone, and pot. */
+/** Common server-side SGUI screen for the oven, millstone, and cooking_pot. */
 public final class FoodMachineGui extends SimpleGui {
     private static final int INPUT_ROW = 1;
     private static final int INPUT_FIRST_COLUMN = 1;
@@ -22,17 +23,17 @@ public final class FoodMachineGui extends SimpleGui {
         super(MenuType.GENERIC_9x3, player, false);
         this.machine = machine;
         setLockPlayerInventory(false);
-        setTitle(machine.isPot()
-                ? FoodMachineGuiTextures.potTitle(machine.getDisplayName())
+        setTitle(machine.isCookingPot()
+                ? FoodMachineGuiTextures.cookingPotTitle(machine.getDisplayName())
                 : FoodMachineGuiTextures.machineTitle(machine.getDisplayName(), machine.isOven() ? "d" : "e"));
         buildLayout();
         updateStatus();
     }
 
     private void buildLayout() {
-        if (machine.isPot()) {
-            // Match Farmer's Delight's cooking-pot screen: a 2x3 ingredient grid,
-            // meal preview at the upper right, and machine controls below it.
+        if (machine.isCookingPot() || machine.isOven()) {
+            // Both the cooking pot and oven use a 2x3 ingredient grid, a result
+            // preview, and a single output slot. Only the cooking pot needs heat.
             for (int machineSlot = 0; machineSlot < FoodMachineBlockEntity.INPUT_SLOT_COUNT; machineSlot++) {
                 int row = machineSlot / 3;
                 int column = machineSlot % 3;
@@ -41,17 +42,22 @@ public final class FoodMachineGui extends SimpleGui {
             // These positions mirror the reference CookingPotUi exactly.
             setSlot(screenSlot(4, 0), progressElement());
             setSlot(screenSlot(6, 0), FoodMachineGuiElements.display(machine.previewStack()));
-            setSlot(screenSlot(2, 2), FoodMachineGuiElements.heat(machine.isHeated()));
+            if (machine.isCookingPot()) {
+                setSlot(screenSlot(2, 2), FoodMachineGuiElements.heat(machine.isHeated()));
+                setSlot(screenSlot(0, 2), ProcessingPolydex.cookingPotButton(getPlayer(), this::open));
+            } else {
+                setSlot(screenSlot(0, 2), ProcessingPolydex.ovenButton(getPlayer(), this::open));
+            }
             setSlot(screenSlot(7, 2), outputSlot());
             return;
         }
-        if (machine.isMillstone() || machine.isOven()) {
-            // Both machines use a single-input flow with a two-cell progress arrow.
-            setSlot(screenSlot(1, INPUT_ROW), inputSlot(0));
-            // The 32px progress model occupies columns 3 and 4 visually.
+        if (machine.isMillstone()) {
+            // The millstone uses a single-input flow with a two-cell progress arrow.
+            setSlot(screenSlot(2, INPUT_ROW), inputSlot(0));
             setSlot(screenSlot(3, INPUT_ROW), progressElement());
             setSlot(screenSlot(5, INPUT_ROW), FoodMachineGuiElements.display(machine.previewStack()));
-            setSlot(screenSlot(7, INPUT_ROW), outputSlot());
+            setSlot(screenSlot(0, 2), ProcessingPolydex.millstoneButton(getPlayer(), this::open));
+            setSlot(screenSlot(6, INPUT_ROW), outputSlot());
             return;
         }
     }
@@ -75,11 +81,13 @@ public final class FoodMachineGui extends SimpleGui {
     }
 
     private void updateStatus() {
-        if (machine.isPot()) {
+        if (machine.isCookingPot() || machine.isOven()) {
             setSlot(screenSlot(4, 0), progressElement());
             setSlot(screenSlot(6, 0), FoodMachineGuiElements.display(machine.previewStack()));
-            setSlot(screenSlot(2, 2), FoodMachineGuiElements.heat(machine.isHeated()));
-        } else if (machine.isMillstone() || machine.isOven()) {
+            if (machine.isCookingPot()) {
+                setSlot(screenSlot(2, 2), FoodMachineGuiElements.heat(machine.isHeated()));
+            }
+        } else if (machine.isMillstone()) {
             setSlot(screenSlot(3, INPUT_ROW), progressElement());
             setSlot(screenSlot(5, INPUT_ROW), FoodMachineGuiElements.display(machine.previewStack()));
         }
@@ -100,3 +108,4 @@ public final class FoodMachineGui extends SimpleGui {
         updateStatus();
     }
 }
+

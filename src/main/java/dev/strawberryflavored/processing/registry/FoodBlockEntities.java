@@ -25,12 +25,12 @@ public final class FoodBlockEntities {
     public static final BlockEntityType<FoodMachineBlockEntity> MILLSTONE = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, MILLSTONE_KEY,
             new BlockEntityType<>((pos, state) -> new FoodMachineBlockEntity(FoodBlockEntities.MILLSTONE, pos, state, FoodMachineBlock.Station.MILLSTONE), Set.of(FoodBlocks.MILLSTONE)));
-    public static final BlockEntityType<FoodMachineBlockEntity> POT = Registry.register(
-            BuiltInRegistries.BLOCK_ENTITY_TYPE, ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, StrawberryFlavored.id("pot")),
-            new BlockEntityType<>((pos, state) -> new FoodMachineBlockEntity(FoodBlockEntities.POT, pos, state, FoodMachineBlock.Station.POT), Set.of(FoodBlocks.POT)));
+    public static final BlockEntityType<FoodMachineBlockEntity> COOKING_POT = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, StrawberryFlavored.id("cooking_pot")),
+            new BlockEntityType<>((pos, state) -> new FoodMachineBlockEntity(FoodBlockEntities.COOKING_POT, pos, state, FoodMachineBlock.Station.COOKING_POT), Set.of(FoodBlocks.COOKING_POT)));
 
     public static BlockEntityType<FoodMachineBlockEntity> typeFor(FoodMachineBlock.Station station) {
-        return switch (station) { case OVEN -> OVEN; case MILLSTONE -> MILLSTONE; case POT -> POT; };
+        return switch (station) { case OVEN -> OVEN; case MILLSTONE -> MILLSTONE; case COOKING_POT -> COOKING_POT; };
     }
 
     private FoodBlockEntities() {}
@@ -39,6 +39,6 @@ public final class FoodBlockEntities {
         // These types exist only on the server. Polymer synchronizes the
         // represented blocks and menus, while registry-sync must not require
         // an identically modded client to know these implementation types.
-        PolymerBlockUtils.registerBlockEntity(OVEN, MILLSTONE, POT);
+        PolymerBlockUtils.registerBlockEntity(OVEN, MILLSTONE, COOKING_POT);
     }
 }

@@ -26,7 +26,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Persistent machine inventory: input in slot 0 and output in slot 4. */
+/** Persistent machine inventory: six input slots, a status slot, and one output slot. */
 public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
     public static final int INPUT_SLOT = 0;
     public static final int INPUT_SLOT_COUNT = 6;
@@ -49,12 +49,12 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
         machine.updateIndicator();
         ProcessingRecipe recipe = machine.recipe();
         boolean working = recipe != null
-                && machine.canProduce(recipe.output())
-                && (machine.isOven() || machine.isMillstone() || machine.isHeatedByOven());
+                && machine.canProduce(recipe)
+                && ((machine.isOven() && machine.isLit()) || machine.isMillstone() || machine.isHeatedByOven());
         if (working) {
             machine.progress++;
             if (machine.progress >= recipe.duration()) {
-                machine.finish(recipe.output());
+                machine.finish(recipe);
             }
             machine.setChanged();
         } else if (recipe == null) {
@@ -103,23 +103,21 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
         return false;
     }
 
-    private boolean canProduce(net.minecraft.world.item.Item result) {
+    private boolean canProduce(ProcessingRecipe recipe) {
         ItemStack output = getItem(OUTPUT_SLOT);
-        if (!(output.isEmpty() || (output.is(result) && output.getCount() < output.getMaxStackSize()))) return false;
-        ProcessingRecipe recipe = recipe();
-        return true;
+        return output.isEmpty() || (output.is(recipe.output())
+                && output.getCount() + recipe.outputCount() <= output.getMaxStackSize());
     }
 
-    private void finish(net.minecraft.world.item.Item result) {
-        ProcessingRecipe recipe = recipe();
+    private void finish(ProcessingRecipe recipe) {
         if (recipe != null) for (net.minecraft.world.item.Item required : recipe.inputs()) {
             for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
                 if (getItem(slot).is(required)) { getItem(slot).shrink(1); break; }
             }
         }
         ItemStack output = getItem(OUTPUT_SLOT);
-        if (output.isEmpty()) setItem(OUTPUT_SLOT, new ItemStack(result));
-        else output.grow(1);
+        if (output.isEmpty()) setItem(OUTPUT_SLOT, new ItemStack(recipe.output(), recipe.outputCount()));
+        else output.grow(recipe.outputCount());
         progress = 0;
     }
 
@@ -166,15 +164,16 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
     public int duration() { ProcessingRecipe recipe = recipe(); return recipe == null ? 0 : recipe.duration(); }
 
     public boolean isOven() { return station == FoodMachineBlock.Station.OVEN; }
+    public boolean isLit() { return getBlockState().getValue(BlockStateProperties.LIT); }
     public boolean isMillstone() { return station == FoodMachineBlock.Station.MILLSTONE; }
-    public boolean isPot() { return station == FoodMachineBlock.Station.POT; }
+    public boolean isCookingPot() { return station == FoodMachineBlock.Station.COOKING_POT; }
     public boolean isHeated() { return isHeatedByOven(); }
     public int burnRemaining() { return burnRemaining; }
     public int burnTotal() { return burnTotal; }
 
     public ItemStack previewStack() {
         ProcessingRecipe recipe = recipe();
-        return recipe == null ? ItemStack.EMPTY : new ItemStack(recipe.output());
+        return recipe == null ? ItemStack.EMPTY : new ItemStack(recipe.output(), recipe.outputCount());
     }
 
     /** Required by BaseContainerBlockEntity; normal station interaction uses SGUI. */
@@ -197,13 +196,6 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
             return below.getValue(BlockStateProperties.LIT);
         }
         return below.is(Blocks.FIRE);
-    }
-
-    private static int fuelDuration(ItemStack stack) {
-        if (stack.is(net.minecraft.world.item.Items.COAL) || stack.is(net.minecraft.world.item.Items.CHARCOAL)) return 1600;
-        if (stack.is(net.minecraft.world.item.Items.BLAZE_ROD)) return 2400;
-        if (stack.is(net.minecraft.world.item.Items.LAVA_BUCKET)) return 20000;
-        return 0;
     }
 
     @Override

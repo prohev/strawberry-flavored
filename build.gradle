@@ -28,6 +28,8 @@ dependencies {
     implementation "eu.pb4:polymer-resource-pack:[${polymer_version}]"
     implementation "eu.pb4:polymer-resource-pack-extras:[${polymer_version}]"
 	implementation "eu.pb4:polymer-autohost:[${polymer_version}]"
+	implementation "eu.pb4:polymer-virtual-entity:[${polymer_version}]"
+	implementation include("eu.pb4:factorytools:${factorytools_version}")
 	implementation include("eu.pb4:sgui:${sgui_version}")
 
 	// Required server utility for recipe discovery and Polymer-compatible recipe viewing.

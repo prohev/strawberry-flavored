@@ -29,7 +29,7 @@ public final class FoodItems {
     public static final Item APPLE_PIE = register("apple_pie", Items.ECHO_SHARD, 6, 0.6f);
     public static final Item BLUEBERRY_PIE = register("blueberry_pie", Items.ECHO_SHARD, 6, 0.6f);
     public static final Item STRAWBERRY_PIE = register("strawberry_pie", Items.ECHO_SHARD, 6, 0.6f);
-    public static final Item STRAWBERRY_CAKE = register("strawberry_cake", Items.ECHO_SHARD, 6, 0.6f);
+    public static final Item STRAWBERRY_CAKE = FoodBlocks.STRAWBERRY_CAKE.asItem();
     public static final Item CORN = register("corn", Items.ECHO_SHARD, 3, 0.3f);
     public static final Item MASA = register("masa", Items.ECHO_SHARD, 0, 0);
     public static final Item TORTILLA = register("tortilla", Items.ECHO_SHARD, 3, 0.4f);
@@ -37,7 +37,6 @@ public final class FoodItems {
     public static final Item STEAK_TACO = register("steak_taco", Items.ECHO_SHARD, 8, 0.8f);
     public static final Item APPLE_FRITTER = register("apple_fritter", Items.ECHO_SHARD, 7, 0.8f);
     public static final Item FRIED_EGG = register("fried_egg", Items.COOKED_BEEF, 5, 0.6f);
-    public static final Item GUI_FILLER = register("gui_filler", Items.IRON_NUGGET, 0, 0, false);
 
     private FoodItems() {}
 

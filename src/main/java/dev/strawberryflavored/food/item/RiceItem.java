@@ -15,9 +15,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluids;
 
 public final class RiceItem extends SimplePolymerItem implements PolymerItem {
-    public RiceItem(Item.Properties properties) { super(properties, Items.WHEAT_SEEDS); }
+    // Kelp is the vanilla client fallback because it is a water-growing item;
+    // using wheat seeds makes Polymer/client placement treat rice as farmland crop.
+    public RiceItem(Item.Properties properties) { super(properties, Items.KELP); }
 
     @Override
     public Identifier getPolymerItemModel(ItemStack stack, PacketContext context, HolderLookup.Provider lookup) {
@@ -28,14 +32,19 @@ public final class RiceItem extends SimplePolymerItem implements PolymerItem {
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockPos waterPos = context.getClickedPos();
-        BlockPos cropPos = waterPos.above();
-        var cropState = FoodBlocks.RICE.defaultBlockState();
-        if (!level.getBlockState(waterPos).is(Blocks.WATER)
+        if (!level.getFluidState(waterPos).is(Fluids.WATER)) {
+            waterPos = waterPos.relative(context.getClickedFace());
+        }
+        BlockPos cropPos = waterPos;
+        var cropState = FoodBlocks.RICE.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true);
+        if (!level.getFluidState(waterPos).is(Fluids.WATER)
                 || !level.getFluidState(waterPos).isSource()
-                || !level.getBlockState(cropPos).canBeReplaced()
-                || !cropState.canSurvive(level, cropPos)) return InteractionResult.PASS;
+                || !level.getBlockState(waterPos).canBeReplaced()
+                || !level.getBlockState(waterPos.below()).is(net.minecraft.tags.BlockTags.DIRT)
+                && !level.getBlockState(waterPos.below()).is(Blocks.MUD)) return InteractionResult.PASS;
+        if (!cropState.canSurvive(level, cropPos)) return InteractionResult.PASS;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
-        if (!level.setBlock(cropPos, cropState, 3)) return InteractionResult.PASS;
+        if (!level.setBlockAndUpdate(cropPos, cropState)) return InteractionResult.PASS;
         context.getItemInHand().shrink(1);
         return InteractionResult.SUCCESS;
     }

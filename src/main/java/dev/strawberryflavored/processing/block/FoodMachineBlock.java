@@ -1,18 +1,23 @@
 package dev.strawberryflavored.processing.block;
 
-import dev.strawberryflavored.StrawberryFlavored;
 import dev.strawberryflavored.processing.registry.FoodBlockEntities;
-import eu.pb4.polymer.blocks.api.PolymerTexturedBlock;
-import eu.pb4.polymer.core.api.block.PolymerBlock;
+import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.block.model.generic.BSMMParticleBlock;
+import eu.pb4.factorytools.api.block.model.generic.BlockStateModel;
+import eu.pb4.polymer.virtualentity.api.ElementHolder;
 import eu.pb4.polymer.core.api.block.SimplePolymerBlock;
 import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import dev.strawberryflavored.processing.ui.FoodMachineGui;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -20,15 +25,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.item.context.BlockPlaceContext;
 /** Polymer-backed processing station whose inventory lives in a block entity. */
-public final class FoodMachineBlock extends SimplePolymerBlock implements PolymerBlock, PolymerTexturedBlock, EntityBlock {
-    public enum Station { OVEN, MILLSTONE, POT }
+public final class FoodMachineBlock extends SimplePolymerBlock implements FactoryBlock, BSMMParticleBlock, EntityBlock {
+    public enum Station { OVEN, MILLSTONE, COOKING_POT }
     private final Station station;
-    private final BlockState polymerBlockState;
+    private static final VoxelShape COOKING_POT_SHAPE = Block.box(0, 0, 0, 16, 12, 16);
 
     public FoodMachineBlock(Properties properties, Block vanillaRepresentation) {
         this(properties, vanillaRepresentation, vanillaRepresentation == Blocks.FURNACE ? Station.OVEN : Station.MILLSTONE);
@@ -37,19 +45,54 @@ public final class FoodMachineBlock extends SimplePolymerBlock implements Polyme
     public FoodMachineBlock(Properties properties, Block vanillaRepresentation, Station station) {
         super(properties, vanillaRepresentation);
         this.station = station;
-        // Never allocate a Polymer virtual state here. Virtual states can produce
-        // palette IDs that vanilla clients cannot decode in chunk packets.
-        this.polymerBlockState = vanillaRepresentation.defaultBlockState();
+        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.LIT);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING,
+                context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos,
+                                           CollisionContext context) {
+        return station == Station.COOKING_POT ? COOKING_POT_SHAPE : super.getCollisionShape(state, level, pos, context);
     }
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        return polymerBlockState;
+        // The model is rendered by the FactoryTools virtual entity. An
+        // invisible full block prevents the vanilla fallback from clipping
+        // through custom machine geometry while keeping the block targetable.
+        return Blocks.BARRIER.defaultBlockState();
+    }
+
+    @Override
+    public ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
+        return BlockStateModel.longRange(initialBlockState, pos);
+    }
+
+    @Override
+    public boolean tickElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
+        return false;
     }
 
     @Override
     protected InteractionResult useItemOn(ItemStack held, BlockState state, Level level, BlockPos pos,
                                           Player player, InteractionHand hand, BlockHitResult hit) {
+        if (station == Station.OVEN && held.is(Items.FLINT_AND_STEEL) && !state.getValue(BlockStateProperties.LIT)) {
+            level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), Block.UPDATE_ALL);
+            level.levelEvent(1009, pos, 0);
+            held.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND
+                    ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+            return InteractionResult.SUCCESS;
+        }
         return openMachine(level, pos, player);
     }
 

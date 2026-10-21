@@ -13,21 +13,21 @@ final class FoodMachineGuiTextures {
             new FontDescription.Resource(StrawberryFlavored.id("signature")))
             .withColor(0xFFFFFF).withItalic(false);
     // Match the reference generator's ordinary generated glyph characters.
-    private static final String POT_GLYPH = "b";
-    private static final String POT_LEFT_SPACE = "a";
-    private static final String POT_RIGHT_SPACE = "c";
+    private static final String COOKING_POT_GLYPH = "b";
+    private static final String COOKING_POT_LEFT_SPACE = "a";
+    private static final String COOKING_POT_RIGHT_SPACE = "c";
 
     private FoodMachineGuiTextures() {}
 
-    static Component potTitle(Component title) {
+    static Component cookingPotTitle(Component title) {
         return machineTitle(title, "b");
     }
 
     static Component machineTitle(Component title, String glyph) {
-        Component background = Component.literal(POT_LEFT_SPACE + POT_GLYPH + POT_RIGHT_SPACE)
+        Component background = Component.literal(COOKING_POT_LEFT_SPACE + COOKING_POT_GLYPH + COOKING_POT_RIGHT_SPACE)
                 .withStyle(GUI_STYLE);
-        if (!glyph.equals(POT_GLYPH)) {
-            background = Component.literal(POT_LEFT_SPACE + glyph + POT_RIGHT_SPACE)
+        if (!glyph.equals(COOKING_POT_GLYPH)) {
+            background = Component.literal(COOKING_POT_LEFT_SPACE + glyph + COOKING_POT_RIGHT_SPACE)
                 .withStyle(GUI_STYLE);
         }
         Component strawberry = Component.literal("\uE000").withStyle(SIGNATURE_STYLE);

@@ -25,26 +25,28 @@ import java.util.List;
 public final class FoodProcessingRecipes {
     public static volatile List<ProcessingRecipe> MILLSTONE = List.of(
             new ProcessingRecipe(Items.WHEAT, FoodItems.FLOUR, 80),
-            new ProcessingRecipe(FoodItems.CORN, FoodItems.MASA, 80)
+            new ProcessingRecipe(FoodItems.CORN, FoodItems.MASA, 80),
+            new ProcessingRecipe("millstone", List.of(Items.BONE), Items.BONE_MEAL, 4, 80, null)
     );
 
     public static volatile List<ProcessingRecipe> OVEN = List.of(
             new ProcessingRecipe(FoodItems.DOUGH, Items.BREAD, 200),
-            new ProcessingRecipe(FoodBlocks.RICE_ITEM, FoodItems.COOKED_RICE, 100),
             new ProcessingRecipe(Items.APPLE, FoodItems.BAKED_APPLE, 160),
             new ProcessingRecipe(FoodItems.MASA, FoodItems.TORTILLA, 100),
-            new ProcessingRecipe(Items.EGG, FoodItems.FRIED_EGG, 120)
+            new ProcessingRecipe(Items.EGG, FoodItems.FRIED_EGG, 120),
+            new ProcessingRecipe(Items.BROWN_EGG, FoodItems.FRIED_EGG, 120),
+            new ProcessingRecipe(Items.BLUE_EGG, FoodItems.FRIED_EGG, 120)
     );
-    public static volatile List<ProcessingRecipe> POT = List.of(
-            new ProcessingRecipe("pot", List.of(FoodBlocks.RICE_ITEM), FoodItems.COOKED_RICE, 100, null),
-            new ProcessingRecipe("pot", List.of(Items.APPLE, Items.SUGAR), FoodItems.APPLE_JAM, 100, null),
-            new ProcessingRecipe("pot", List.of(Items.SWEET_BERRIES, Items.SUGAR), FoodItems.SWEET_BERRY_JAM, 100, null),
-            new ProcessingRecipe("pot", List.of(FoodItems.STRAWBERRY, Items.SUGAR), FoodItems.STRAWBERRY_JAM, 100, null),
-            new ProcessingRecipe("pot", List.of(FoodItems.BLUEBERRY, Items.SUGAR), FoodItems.BLUEBERRY_JAM, 100, null)
+    public static volatile List<ProcessingRecipe> COOKING_POT = List.of(
+            new ProcessingRecipe("cooking_pot", List.of(FoodBlocks.RICE_ITEM), FoodItems.COOKED_RICE, 100, null),
+            new ProcessingRecipe("cooking_pot", List.of(FoodItems.BAKED_APPLE, Items.SUGAR), FoodItems.APPLE_JAM, 100, null),
+            new ProcessingRecipe("cooking_pot", List.of(Items.SWEET_BERRIES, Items.SUGAR), FoodItems.SWEET_BERRY_JAM, 100, null),
+            new ProcessingRecipe("cooking_pot", List.of(FoodItems.STRAWBERRY, Items.SUGAR), FoodItems.STRAWBERRY_JAM, 100, null),
+            new ProcessingRecipe("cooking_pot", List.of(FoodItems.BLUEBERRY, Items.SUGAR), FoodItems.BLUEBERRY_JAM, 100, null)
     );
 
     public static List<ProcessingRecipe> forStation(dev.strawberryflavored.processing.block.FoodMachineBlock.Station station) {
-        return switch (station) { case OVEN -> OVEN; case MILLSTONE -> MILLSTONE; case POT -> POT; };
+        return switch (station) { case OVEN -> OVEN; case MILLSTONE -> MILLSTONE; case COOKING_POT -> COOKING_POT; };
     }
 
     private FoodProcessingRecipes() {}
@@ -77,24 +79,24 @@ public final class FoodProcessingRecipes {
                 JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
                 all.add(fromJson(json));
             } catch (IOException | RuntimeException exception) {
-                StrawberryFlavored.LOGGER.error("Could not load processing recipe {}", id, exception);
+                StrawberryFlavored.LOGGER.error("{} Could not load processing recipe {}", StrawberryFlavored.LOG_TAG, id, exception);
             }
         });
         return all;
     }
 
     private static void applyLoaded(List<ProcessingRecipe> all) {
-        List<ProcessingRecipe> oven = new ArrayList<>(), pot = new ArrayList<>(), millstone = new ArrayList<>();
+        List<ProcessingRecipe> oven = new ArrayList<>(), cookingPot = new ArrayList<>(), millstone = new ArrayList<>();
         for (ProcessingRecipe recipe : all) switch (recipe.station()) {
             case "oven" -> oven.add(recipe);
-            case "pot" -> pot.add(recipe);
+            case "cooking_pot" -> cookingPot.add(recipe);
             case "millstone" -> millstone.add(recipe);
-            default -> StrawberryFlavored.LOGGER.warn("Unknown processing station {}", recipe.station());
+            default -> StrawberryFlavored.LOGGER.warn("{} Unknown processing station {}", StrawberryFlavored.LOG_TAG, recipe.station());
         }
         if (!oven.isEmpty()) OVEN = List.copyOf(oven);
-        if (!pot.isEmpty()) POT = List.copyOf(pot);
+        if (!cookingPot.isEmpty()) COOKING_POT = List.copyOf(cookingPot);
         if (!millstone.isEmpty()) MILLSTONE = List.copyOf(millstone);
-        StrawberryFlavored.LOGGER.info("Loaded {} oven, {} pot, and {} millstone processing recipes", OVEN.size(), POT.size(), MILLSTONE.size());
+        StrawberryFlavored.LOGGER.info("{} Loaded {} oven, {} cookingPot, and {} millstone processing recipes", StrawberryFlavored.LOG_TAG, OVEN.size(), COOKING_POT.size(), MILLSTONE.size());
     }
 
     private static ProcessingRecipe fromJson(JsonObject json) {
@@ -109,7 +111,9 @@ public final class FoodProcessingRecipes {
         Item container = json.has("container_return") ? item(json.get("container_return").getAsString()) : null;
         if (inputs.isEmpty() || inputs.stream().anyMatch(input -> input == Items.AIR)
                 || output == Items.AIR || duration <= 0) throw new IllegalArgumentException("Invalid processing recipe");
-        return new ProcessingRecipe(json.get("station").getAsString(), List.copyOf(inputs), output, duration, container == Items.AIR ? null : container);
+        int outputCount = json.has("output_count") ? json.get("output_count").getAsInt() : 1;
+        if (outputCount <= 0) throw new IllegalArgumentException("Invalid processing recipe output count");
+        return new ProcessingRecipe(json.get("station").getAsString(), List.copyOf(inputs), output, outputCount, duration, container == Items.AIR ? null : container);
     }
 
     private static Item item(String value) {
@@ -120,3 +124,4 @@ public final class FoodProcessingRecipes {
         return recipes.stream().filter(recipe -> recipe.input() == input).findFirst().orElse(null);
     }
 }
+

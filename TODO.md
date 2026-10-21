@@ -9,9 +9,11 @@
 - [x] Soul Hearts provide an extra heart, with Soul Shards available for crafting and duplication.
 - [x] Major events display titles, including summoning the Wither and entering the End.
 - [x] Dedicated food module and food-specific asset folders.
-- [x] Corn item, kernels, two-block crop foundation, masa, tortillas, tacos, and apple fritter recipe definitions.
-- [x] Functional oven and millstone processing, including fried eggs, cooked rice, flour, masa, bread, tortillas, and baked apples.
-- [x] Dedicated pixel-art oven, millstone, and fried-egg assets.
+- [x] Corn crop with growth stages, kernels, masa, tortillas, tacos, and apple fritter recipe definitions.
+- [x] Rice crop with growth stages, rice panicles, harvesting, and cooked-rice recipes.
+- [x] Expanded food recipes including pies, jams, dough, flour, onigiri, golden strawberries, and strawberry cake.
+- [x] Functional oven and millstone processing, including fried eggs, flour, masa, bread, tortillas, bone meal, and baked apples.
+- [x] Dedicated pixel-art food, crop, oven, millstone, and processing-menu assets.
 
 ## Planned / brainstorming
 - [ ] Totem works in the void: falling into the void with a totem in hand/offhand triggers a controllable float until you reach solid ground, or launches you back up with slow falling.
@@ -23,10 +25,11 @@
 - [ ] Ghost peppers in the Nether.
 - [ ] Echo shard silencing: dampen vibrations/sound emissions.
 - [ ] Holding a feather in hand deals 0 damage.
+- [x] Add persistent block entities and real synchronized native server menus for the oven, cooking pot, and millstone.
+- [x] Add dedicated progress, fuel, and heated-state indicators with persisted cooking progress.
+- [x] Add a cooking pot with heat-dependent processing recipes for rice, jams, and Happy Ghast treats.
+- [x] Add Polydex documentation and a creative-tab entry for processing recipes.
 - [ ] Farmers Delight-inspired content.
-- [x] Add persistent block entities and real synchronized native server menus for the oven, pot, and millstone.
-- [x] Add a dedicated progress indicator and persisted oven fuel/cooking progress.
-- [x] Add a cooking pot with heat-dependent processing recipes.
 - [ ] Add live dedicated-server and vanilla-client Polymer tests for the food module.
 - [ ] Origins-inspired race selector.
 - [ ] Sniffer-related additions.

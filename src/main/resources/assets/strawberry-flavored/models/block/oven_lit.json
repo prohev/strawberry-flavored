@@ -1,1 +1,101 @@
-{"parent":"minecraft:block/cube_all","textures":{"all":"strawberry-flavored:block/oven"}}
+{
+    "parent":  "minecraft:block/cube",
+    "ambientocclusion":  true,
+    "textures": {
+        "all": "strawberry-flavored:block/oven_texture"
+    },
+    "elements":  [
+                     {
+                         "name":  "cube",
+                         "box_uv":  false,
+                         "render_order":  "default",
+                         "rescale":  false,
+                         "locked":  false,
+                         "light_emission":  0,
+                         "export":  true,
+                         "scope":  0,
+                         "allow_mirror_modeling":  true,
+                         "from":  [
+                                      0,
+                                      0,
+                                      0
+                                  ],
+                         "to":  [
+                                    16,
+                                    16,
+                                    16
+                                ],
+                         "autouv":  0,
+                         "color":  8,
+                         "origin":  [
+                                        0,
+                                        0,
+                                        0
+                                    ],
+                         "faces":  {
+                                       "north":  {
+                                                     "uv":  [
+                                                                  0,
+                                                                  0,
+                                                                  4,
+                                                                  4
+                                                            ],
+                                                     "texture":  "#all",
+                                                     "cullface":  "north"
+                                                 },
+                                       "east":  {
+                                                    "uv":  [
+                                                               0,
+                                                               4,
+                                                               4,
+                                                               8
+                                                           ],
+                                                    "texture":  "#all",
+                                                    "cullface":  "east"
+                                                },
+                                       "south":  {
+                                                     "uv":  [
+                                                                4,
+                                                                0,
+                                                                8,
+                                                                4
+                                                            ],
+                                                     "texture":  "#all",
+                                                     "cullface":  "south"
+                                                 },
+                                       "west":  {
+                                                    "uv":  [
+                                                               4,
+                                                               4,
+                                                               8,
+                                                               8
+                                                           ],
+                                                    "texture":  "#all",
+                                                    "cullface":  "west"
+                                                },
+                                       "up":  {
+                                                  "uv":  [
+                                                             0,
+                                                             8,
+                                                             4,
+                                                             12
+                                                         ],
+                                                  "texture":  "#all",
+                                                  "cullface":  "up"
+                                              },
+                                       "down":  {
+                                                    "uv":  [
+                                                               8,
+                                                               0,
+                                                               12,
+                                                               4
+                                                           ],
+                                                    "texture":  "#all",
+                                                    "cullface":  "down"
+                                                }
+                                   },
+                         "type":  "cube",
+                         "uuid":  "d5ce9022-7e0a-7c7b-94ef-4878b080310a"
+                     }
+                 ]}
+

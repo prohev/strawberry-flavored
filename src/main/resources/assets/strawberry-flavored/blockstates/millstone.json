@@ -1,1 +1,1 @@
-{"variants":{"":{"model":"strawberry-flavored:block/millstone"}}}
+{"variants":{"facing=north":{"model":"strawberry-flavored:block/millstone","y":0},"facing=east":{"model":"strawberry-flavored:block/millstone","y":90},"facing=south":{"model":"strawberry-flavored:block/millstone","y":180},"facing=west":{"model":"strawberry-flavored:block/millstone","y":270}}}
