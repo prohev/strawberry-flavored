@@ -1,10 +1,10 @@
-<p align="center">
+﻿<p align="center">
   <img src="src/main/resources/assets/icon.png" alt="Strawberry Flavored icon" width="640">
 </p>
 
 <p align="center">
   A collection of small quality-of-life features for Minecraft.
-  Everything is server-side; clients do not need Strawberry Flavored installed.
+  Everything is server-side using Polymer; clients do not need Strawberry Flavored installed.
 </p>
 
 ## Features
@@ -18,6 +18,41 @@
 - Lapis and quartz trim materials grant Speed I.
 - Other trim materials currently have no bonus.
 
+
+</details>
+
+<details>
+<summary><strong>Food and Farming</strong></summary>
+
+### Crops and food blocks
+
+- Corn grows through multiple stages from corn kernels and can be milled into masa.
+- Rice grows through multiple stages, produces rice items from its panicles, and can be cooked into cooked rice.
+- Blueberry and strawberry bushes have dedicated growth-stage assets and harvesting behavior.
+- Strawberry cake is a placeable food block with slice-based servings.
+
+### Crafting recipes
+
+- Corn kernels are crafted from corn; tortillas use masa; cooked pork or cooked steak can be combined with tortillas to make tacos.
+- Flour is milled from wheat, dough is made from flour, and dough can be baked into bread.
+- Apple fritters use flour, baked apple, and sugar. Pies, onigiri, golden strawberries, and strawberry cake add more food recipes.
+
+### Oven recipes
+
+- Bake dough into bread, apples into baked apples, and masa into tortillas.
+- Cook regular, brown, and blue eggs into fried eggs.
+
+### Millstone recipes
+
+- Mill wheat into flour, corn into masa, and bones into bone meal.
+
+### Cooking pot recipes
+
+- Cook rice into cooked rice.
+- Combine baked apples and sugar into apple jam.
+- Combine sweet berries and sugar into sweet berry jam.
+- Combine strawberries or blueberries with sugar into their corresponding jams.
+- Combine honeycomb, a honey bottle, and sugar in the cooking pot to make Happy Ghast treats.
 
 </details>
 
@@ -89,14 +124,30 @@
 </details>
 
 <details>
-<summary><strong>Major Event Titles</strong></summary>
+<summary><strong>Misc</strong></summary>
 
 - Major events, such as summoning the Wither or entering the End, display an on-screen title.
+- Throw an invisibility splash potion at an item frame to hide it; use a splash water bottle to restore its visibility.
 
 </details>
 
 
 ## Versioning / GitHub
+
+## Cooking Machines
+
+The oven, cooking pot, and millstone use native server-side container menus with
+persisted block entities, fuel/cooking progress, heat state, and recipe validation. Players
+can insert valid ingredients and collect outputs without installing
+Strawberry Flavored or Polymer. The oven is
+represented to vanilla clients by an unlit campfire and the cooking pot by a cauldron;
+these are network fallbacks only.
+
+- The oven bakes foods and processes eggs, dough, masa, apples, pies, cakes, apple fritters, and strawberry danishes.
+- The cooking pot processes rice, onigiri, popcorn, jams, and Happy Ghast treats, with heat-dependent recipes.
+- The millstone processes wheat, corn, and bone into food ingredients and bone meal.
+- Native progress, fuel, and heated-state indicators are shown in the server menu.
+- Processing recipes are documented through the Polydex integration and its dedicated UI assets.
 
 - The version in `gradle.properties` looks like `26.3-1.6`: Minecraft version, then mod version.
 - A commit containing `[build]` runs CI without changing the version.

@@ -46,3 +46,7 @@ replay_*.log
 # agents
 
 .agents/
+
+# testing java server within dir
+
+run

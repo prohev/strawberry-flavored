@@ -17,11 +17,14 @@
   },
   "depends": {
     "fabricloader": "*",
-    "minecraft": "*",
+    "minecraft": "=26.3",
     "java": ">=25",
     "fabric-api": "*",
     "polymer-core": "*",
-    "polymer-resource-pack": "*"
+    "polymer-virtual-entity": "*",
+    "factorytools": "*",
+    "polymer-resource-pack": "*",
+    "polydex": "*"
   },
   "mixins": [
     "strawberry-flavored.mixins.json"

@@ -4,8 +4,9 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "FarmlandBlockMixin",
-    "ThrownSplashPotionMixin"
-    ,"SoulHeartPlayerMixin",
+    "ThrownSplashPotionMixin",
+    "FlourWaterCauldronMixin",
+    "SoulHeartPlayerMixin",
     "SoulHeartServerPlayerMixin"
   ],
   "injectors": {

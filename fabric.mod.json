@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "polymer-resource-pack-extras",
+  "version": "${version}",
+  "name": "Polymer (Resource Pack Extras)",
+  "description": "Extra functionality and format support for Polymer's server resource pack generation API",
+  "authors": [
+    "Patbox"
+  ],
+  "contributors": [
+    "aws404"
+  ],
+  "contact": {
+    "homepage": "https://pb4.eu",
+    "sources": "https://github.com/Patbox/polymer",
+    "issues": "https://github.com/Patbox/polymer/issues"
+  },
+
+  "license": "LGPLv3",
+  "icon": "assets/icon.png",
+  "environment": "*",
+  "entrypoints": {
+
+  },
+  "mixins": [
+  ],
+
+  "depends": {
+    "polymer-common": ">=${version}",
+    "polymer-resource-pack": ">=${version}",
+    "fabricloader": ">=0.15.0"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": [ "library" ],
+      "links": { "modmenu.discord": "https://pb4.eu/discord" },
+      "parent": "polymer-bundled",
+      "update_checker": false
+    }
+  }
+}

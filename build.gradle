@@ -1,15 +1,17 @@
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
+	id 'checkstyle'
+}
+
+checkstyle {
+	toolVersion = '12.1.2'
+	configFile = file('config/checkstyle/checkstyle.xml')
 }
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
 	maven { url = "https://maven.nucleoid.xyz/" }
+	maven { url = "https://api.modrinth.com/maven" }
 }
 
 dependencies {
@@ -22,8 +24,16 @@ dependencies {
 
 	// Polymer stuffs
 	implementation "eu.pb4:polymer-core:[${polymer_version}]"
+	implementation "eu.pb4:polymer-blocks:[${polymer_version}]"
     implementation "eu.pb4:polymer-resource-pack:[${polymer_version}]"
+    implementation "eu.pb4:polymer-resource-pack-extras:[${polymer_version}]"
 	implementation "eu.pb4:polymer-autohost:[${polymer_version}]"
+	implementation "eu.pb4:polymer-virtual-entity:[${polymer_version}]"
+	implementation include("eu.pb4:factorytools:${factorytools_version}")
+	implementation include("eu.pb4:sgui:${sgui_version}")
+
+	// Required server utility for recipe discovery and Polymer-compatible recipe viewing.
+	implementation "maven.modrinth:m5NB7FJE:${polydex_version}"
 }
 
 processResources {
@@ -67,10 +77,7 @@ publishing {
 	}
 
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
+	 repositories {
+
 	}
 }
