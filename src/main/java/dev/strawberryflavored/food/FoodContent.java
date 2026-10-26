@@ -1,6 +1,7 @@
 package dev.strawberryflavored.food;
 
 import dev.strawberryflavored.food.item.FoodItems;
+import dev.strawberryflavored.food.item.MilkBottleInteraction;
 import dev.strawberryflavored.food.registry.FoodBlocks;
 import dev.strawberryflavored.processing.registry.FoodBlockEntities;
 import dev.strawberryflavored.processing.recipe.FoodProcessingRecipes;
@@ -14,15 +15,19 @@ public final class FoodContent {
     private FoodContent() {}
 
     public static void initialize() {
+        FoodBlocks.initialize();
         FoodItems.initialize();
+        MilkBottleInteraction.register();
         FoodBlockEntities.initialize();
         FoodBlocks.MILLSTONE.toString();
         BlockStateModelManager.addBlock(StrawberryFlavored.id("millstone"), FoodBlocks.MILLSTONE);
         BlockStateModelManager.addBlock(StrawberryFlavored.id("oven"), FoodBlocks.OVEN);
         BlockStateModelManager.addBlock(StrawberryFlavored.id("cooking_pot"), FoodBlocks.COOKING_POT);
+        BlockStateModelManager.addBlock(StrawberryFlavored.id("strawberry_cake"), FoodBlocks.STRAWBERRY_CAKE);
         verifyFactoryModel("millstone", FoodBlocks.MILLSTONE);
         verifyFactoryModel("oven", FoodBlocks.OVEN);
         verifyFactoryModel("cooking_pot", FoodBlocks.COOKING_POT);
+        verifyFactoryModel("strawberry_cake", FoodBlocks.STRAWBERRY_CAKE);
         CreativeTabs.initialize();
         FoodProcessingRecipes.MILLSTONE.size();
         FoodProcessingRecipes.OVEN.size();

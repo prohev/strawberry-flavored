@@ -1,0 +1,8 @@
+{"type":"minecraft:crafting_shaped",
+    "pattern":[
+        "DDD",
+        " C ",
+        "DDD"],
+    "key":{
+        "D":"minecraft:deepslate",
+        "C":"minecraft:copper_ingot"},"result":{"id":"strawberry-flavored:millstone","count":1}}

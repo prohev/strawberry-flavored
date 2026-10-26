@@ -5,6 +5,7 @@
   "mixins": [
     "FarmlandBlockMixin",
     "ThrownSplashPotionMixin",
+    "FlourWaterCauldronMixin",
     "SoulHeartPlayerMixin",
     "SoulHeartServerPlayerMixin"
   ],

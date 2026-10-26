@@ -1,0 +1,6 @@
+{"type":"minecraft:crafting_shaped",
+"pattern":
+    ["CCC",
+    "D D",
+    "DFD"],
+"key":{"C":"minecraft:copper_ingot","D":"minecraft:deepslate","F":"minecraft:campfire"},"result":{"id":"strawberry-flavored:oven","count":1}}

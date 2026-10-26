@@ -1,0 +1,6 @@
+{
+  "station": "cooking_pot",
+  "inputs": ["strawberry-flavored:milk_bottle", "strawberry-flavored:strawberry"],
+  "output": "strawberry-flavored:strawberry_milk",
+  "duration": 100
+}

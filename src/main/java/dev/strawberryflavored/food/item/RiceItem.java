@@ -2,6 +2,7 @@ package dev.strawberryflavored.food.item;
 
 import dev.strawberryflavored.StrawberryFlavored;
 import dev.strawberryflavored.food.registry.FoodBlocks;
+import dev.strawberryflavored.food.crop.RiceCropBlock;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.item.SimplePolymerItem;
 import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
@@ -14,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 
@@ -40,8 +40,7 @@ public final class RiceItem extends SimplePolymerItem implements PolymerItem {
         if (!level.getFluidState(waterPos).is(Fluids.WATER)
                 || !level.getFluidState(waterPos).isSource()
                 || !level.getBlockState(waterPos).canBeReplaced()
-                || !level.getBlockState(waterPos.below()).is(net.minecraft.tags.BlockTags.DIRT)
-                && !level.getBlockState(waterPos.below()).is(Blocks.MUD)) return InteractionResult.PASS;
+                || !RiceCropBlock.isRiceSoil(level.getBlockState(waterPos.below()))) return InteractionResult.PASS;
         if (!cropState.canSurvive(level, cropPos)) return InteractionResult.PASS;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         if (!level.setBlockAndUpdate(cropPos, cropState)) return InteractionResult.PASS;

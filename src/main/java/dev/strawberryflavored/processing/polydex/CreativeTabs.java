@@ -59,12 +59,16 @@ public final class CreativeTabs {
         output.accept(FoodItems.STRAWBERRY_PIE);
         output.accept(FoodItems.STRAWBERRY_CAKE);
         output.accept(FoodItems.CORN);
+        output.accept(FoodItems.POPCORN);
         output.accept(FoodItems.MASA);
         output.accept(FoodItems.TORTILLA);
         output.accept(FoodItems.PORK_TACO);
         output.accept(FoodItems.STEAK_TACO);
         output.accept(FoodItems.APPLE_FRITTER);
+        output.accept(FoodItems.STRAWBERRY_DANISH);
         output.accept(FoodItems.FRIED_EGG);
+        output.accept(FoodItems.MILK_BOTTLE);
+        output.accept(FoodItems.STRAWBERRY_MILK);
         output.accept(FoodBlocks.CORN_KERNELS);
         output.accept(FoodBlocks.RICE_ITEM);
     }
@@ -78,9 +82,10 @@ public final class CreativeTabs {
                 || item == FoodItems.BAKED_APPLE || item == FoodItems.GOLDEN_STRAWBERRY
                 || item == FoodItems.APPLE_PIE || item == FoodItems.BLUEBERRY_PIE
                 || item == FoodItems.STRAWBERRY_PIE || item == FoodItems.STRAWBERRY_CAKE
-                || item == FoodItems.CORN || item == FoodItems.MASA || item == FoodItems.TORTILLA
+                || item == FoodItems.CORN || item == FoodItems.POPCORN || item == FoodItems.MASA || item == FoodItems.TORTILLA
                 || item == FoodItems.PORK_TACO || item == FoodItems.STEAK_TACO
-                || item == FoodItems.APPLE_FRITTER || item == FoodItems.FRIED_EGG
+                || item == FoodItems.APPLE_FRITTER || item == FoodItems.STRAWBERRY_DANISH || item == FoodItems.FRIED_EGG
+                || item == FoodItems.MILK_BOTTLE || item == FoodItems.STRAWBERRY_MILK
                 || item == FoodBlocks.CORN_KERNELS || item == FoodBlocks.RICE_ITEM;
     }
 }

@@ -16,8 +16,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import dev.strawberryflavored.processing.ui.FoodMachineGui;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -33,10 +31,24 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.item.context.BlockPlaceContext;
 /** Polymer-backed processing station whose inventory lives in a block entity. */
-public final class FoodMachineBlock extends SimplePolymerBlock implements FactoryBlock, BSMMParticleBlock, EntityBlock {
+public class FoodMachineBlock extends SimplePolymerBlock implements FactoryBlock, BSMMParticleBlock, EntityBlock {
     public enum Station { OVEN, MILLSTONE, COOKING_POT }
+
+    /** Oven-specific machine variant; only this variant exposes the lit state. */
+    public static final class Oven extends FoodMachineBlock {
+        public Oven(Properties properties, Block vanillaRepresentation) {
+            super(properties, vanillaRepresentation, Station.OVEN);
+        }
+
+        @Override
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+            super.createBlockStateDefinition(builder);
+            builder.add(BlockStateProperties.LIT);
+        }
+    }
+
     private final Station station;
-    private static final VoxelShape COOKING_POT_SHAPE = Block.box(0, 0, 0, 16, 12, 16);
+    private static final VoxelShape COOKING_POT_SHAPE = Block.box(1, 0, 1, 15, 10, 15);
 
     public FoodMachineBlock(Properties properties, Block vanillaRepresentation) {
         this(properties, vanillaRepresentation, vanillaRepresentation == Blocks.FURNACE ? Station.OVEN : Station.MILLSTONE);
@@ -45,12 +57,17 @@ public final class FoodMachineBlock extends SimplePolymerBlock implements Factor
     public FoodMachineBlock(Properties properties, Block vanillaRepresentation, Station station) {
         super(properties, vanillaRepresentation);
         this.station = station;
-        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+        BlockState defaultState = this.stateDefinition.any()
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH);
+        if (station == Station.OVEN && this.stateDefinition.getProperty("lit") != null) {
+            defaultState = defaultState.setValue(BlockStateProperties.LIT, false);
+        }
+        this.registerDefaultState(defaultState);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.LIT);
+        builder.add(BlockStateProperties.HORIZONTAL_FACING);
     }
 
     @Override
@@ -86,13 +103,6 @@ public final class FoodMachineBlock extends SimplePolymerBlock implements Factor
     @Override
     protected InteractionResult useItemOn(ItemStack held, BlockState state, Level level, BlockPos pos,
                                           Player player, InteractionHand hand, BlockHitResult hit) {
-        if (station == Station.OVEN && held.is(Items.FLINT_AND_STEEL) && !state.getValue(BlockStateProperties.LIT)) {
-            level.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), Block.UPDATE_ALL);
-            level.levelEvent(1009, pos, 0);
-            held.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND
-                    ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-            return InteractionResult.SUCCESS;
-        }
         return openMachine(level, pos, player);
     }
 

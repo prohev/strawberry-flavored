@@ -39,9 +39,7 @@ public final class RicePaniclesBlock extends Block implements PolymerBlock, Poly
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (state.getValue(AGE) == 0) {
-            level.setBlockAndUpdate(pos, state.setValue(AGE, 1));
-        }
+        growPanicle(level, pos, state);
     }
 
     @Override
@@ -60,7 +58,18 @@ public final class RicePaniclesBlock extends Block implements PolymerBlock, Poly
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state,
                                 net.minecraft.world.level.block.BonemealSource source) {
-        level.setBlockAndUpdate(pos, state.setValue(AGE, 1));
+        growPanicle(level, pos, state);
+    }
+
+    private static void growPanicle(ServerLevel level, BlockPos pos, BlockState state) {
+        BlockPos basePos = pos.below();
+        BlockState baseState = level.getBlockState(basePos);
+        if (state.getValue(AGE) == 0 && baseState.is(FoodBlocks.RICE)) {
+            level.setBlock(pos, state.setValue(AGE, 1), Block.UPDATE_CLIENTS);
+            if (!level.getBlockState(basePos).is(FoodBlocks.RICE)) {
+                level.setBlock(basePos, baseState, Block.UPDATE_CLIENTS);
+            }
+        }
     }
 
     @Override
@@ -81,8 +90,9 @@ public final class RicePaniclesBlock extends Block implements PolymerBlock, Poly
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockState base = level.getBlockState(pos.below());
-        return base.is(FoodBlocks.RICE)
-                && base.getValue(RiceCropBlock.AGE) == RiceCropBlock.MAX_AGE;
+        // Neighbor updates can observe the crop while its age is changing. The
+        // panicle should remain attached as long as the rice plant still exists.
+        return base.is(FoodBlocks.RICE);
     }
 
     @Override

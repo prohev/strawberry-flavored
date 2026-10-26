@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import java.util.ArrayList;
@@ -92,8 +91,21 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
 
     private ProcessingRecipe recipe() {
         return FoodProcessingRecipes.forStation(station).stream()
-                .filter(recipe -> recipe.inputs().stream().allMatch(required -> hasInput(required)))
-                .findFirst().orElse(null);
+                .filter(this::hasAllInputs)
+                .max(java.util.Comparator.comparingInt(recipe -> recipe.inputs().size()))
+                .orElse(null);
+    }
+
+    private boolean hasAllInputs(ProcessingRecipe recipe) {
+        java.util.Map<net.minecraft.world.item.Item, Integer> available = new java.util.HashMap<>();
+        for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
+            ItemStack stack = getItem(slot);
+            if (!stack.isEmpty()) available.merge(stack.getItem(), stack.getCount(), Integer::sum);
+        }
+        java.util.Map<net.minecraft.world.item.Item, Integer> required = new java.util.HashMap<>();
+        for (net.minecraft.world.item.Item item : recipe.inputs()) required.merge(item, 1, Integer::sum);
+        return required.entrySet().stream().allMatch(entry ->
+                available.getOrDefault(entry.getKey(), 0) >= entry.getValue());
     }
 
     private boolean hasInput(net.minecraft.world.item.Item item) {
@@ -164,7 +176,9 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
     public int duration() { ProcessingRecipe recipe = recipe(); return recipe == null ? 0 : recipe.duration(); }
 
     public boolean isOven() { return station == FoodMachineBlock.Station.OVEN; }
-    public boolean isLit() { return getBlockState().getValue(BlockStateProperties.LIT); }
+    public boolean isLit() {
+        return isOven() || (isCookingPot() && getBlockState().getValue(BlockStateProperties.LIT));
+    }
     public boolean isMillstone() { return station == FoodMachineBlock.Station.MILLSTONE; }
     public boolean isCookingPot() { return station == FoodMachineBlock.Station.COOKING_POT; }
     public boolean isHeated() { return isHeatedByOven(); }

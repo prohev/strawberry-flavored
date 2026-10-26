@@ -35,14 +35,24 @@ public final class FoodProcessingRecipes {
             new ProcessingRecipe(FoodItems.MASA, FoodItems.TORTILLA, 100),
             new ProcessingRecipe(Items.EGG, FoodItems.FRIED_EGG, 120),
             new ProcessingRecipe(Items.BROWN_EGG, FoodItems.FRIED_EGG, 120),
-            new ProcessingRecipe(Items.BLUE_EGG, FoodItems.FRIED_EGG, 120)
+            new ProcessingRecipe(Items.BLUE_EGG, FoodItems.FRIED_EGG, 120),
+            new ProcessingRecipe("oven", List.of(FoodItems.FLOUR, FoodItems.BAKED_APPLE, Items.SUGAR), FoodItems.APPLE_FRITTER, 200, null),
+            new ProcessingRecipe("oven", List.of(FoodItems.BAKED_APPLE, FoodItems.DOUGH, Items.SUGAR), FoodItems.APPLE_PIE, 200, null),
+            new ProcessingRecipe("oven", List.of(FoodItems.BLUEBERRY, FoodItems.DOUGH, Items.SUGAR), FoodItems.BLUEBERRY_PIE, 200, null),
+            new ProcessingRecipe("oven", List.of(FoodItems.STRAWBERRY, FoodItems.DOUGH, Items.SUGAR), FoodItems.STRAWBERRY_PIE, 200, null),
+            new ProcessingRecipe("oven", List.of(FoodItems.STRAWBERRY_JAM, FoodItems.DOUGH, Items.SUGAR), FoodItems.STRAWBERRY_DANISH, 200, null),
+            new ProcessingRecipe("oven", List.of(FoodItems.STRAWBERRY, Items.CAKE), FoodItems.STRAWBERRY_CAKE, 200, null)
     );
     public static volatile List<ProcessingRecipe> COOKING_POT = List.of(
             new ProcessingRecipe("cooking_pot", List.of(FoodBlocks.RICE_ITEM), FoodItems.COOKED_RICE, 100, null),
             new ProcessingRecipe("cooking_pot", List.of(FoodItems.BAKED_APPLE, Items.SUGAR), FoodItems.APPLE_JAM, 100, null),
             new ProcessingRecipe("cooking_pot", List.of(Items.SWEET_BERRIES, Items.SUGAR), FoodItems.SWEET_BERRY_JAM, 100, null),
             new ProcessingRecipe("cooking_pot", List.of(FoodItems.STRAWBERRY, Items.SUGAR), FoodItems.STRAWBERRY_JAM, 100, null),
-            new ProcessingRecipe("cooking_pot", List.of(FoodItems.BLUEBERRY, Items.SUGAR), FoodItems.BLUEBERRY_JAM, 100, null)
+            new ProcessingRecipe("cooking_pot", List.of(FoodItems.BLUEBERRY, Items.SUGAR), FoodItems.BLUEBERRY_JAM, 100, null),
+            new ProcessingRecipe("cooking_pot", List.of(FoodItems.COOKED_RICE, FoodItems.COOKED_RICE, Items.DRIED_KELP), FoodItems.ONIGIRI, 2, 100, null),
+            new ProcessingRecipe("cooking_pot", List.of(FoodBlocks.CORN_KERNELS, Items.SUGAR), FoodItems.POPCORN, 100, null),
+            new ProcessingRecipe("cooking_pot", List.of(FoodItems.MILK_BOTTLE, FoodItems.STRAWBERRY),
+                    FoodItems.STRAWBERRY_MILK, 100, null)
     );
 
     public static List<ProcessingRecipe> forStation(dev.strawberryflavored.processing.block.FoodMachineBlock.Station station) {
@@ -73,7 +83,8 @@ public final class FoodProcessingRecipes {
     private static List<ProcessingRecipe> loadDatapackRecipes(ResourceManager manager) {
         List<ProcessingRecipe> all = new ArrayList<>();
         Map<Identifier, Resource> resources = manager.listResources(
-                "recipes/" + StrawberryFlavored.MOD_ID + "/processing", id -> id.getPath().endsWith(".json"));
+                "recipes/processing", id -> id.getNamespace().equals(StrawberryFlavored.MOD_ID)
+                        && id.getPath().endsWith(".json"));
         resources.forEach((id, resource) -> {
             try (var reader = resource.openAsReader()) {
                 JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
@@ -93,9 +104,11 @@ public final class FoodProcessingRecipes {
             case "millstone" -> millstone.add(recipe);
             default -> StrawberryFlavored.LOGGER.warn("{} Unknown processing station {}", StrawberryFlavored.LOG_TAG, recipe.station());
         }
-        if (!oven.isEmpty()) OVEN = List.copyOf(oven);
-        if (!cookingPot.isEmpty()) COOKING_POT = List.copyOf(cookingPot);
-        if (!millstone.isEmpty()) MILLSTONE = List.copyOf(millstone);
+        // The datapack is authoritative after every reload. Replace empty
+        // station lists too, so removed/disabled recipes do not linger.
+        OVEN = List.copyOf(oven);
+        COOKING_POT = List.copyOf(cookingPot);
+        MILLSTONE = List.copyOf(millstone);
         StrawberryFlavored.LOGGER.info("{} Loaded {} oven, {} cookingPot, and {} millstone processing recipes", StrawberryFlavored.LOG_TAG, OVEN.size(), COOKING_POT.size(), MILLSTONE.size());
     }
 

@@ -34,7 +34,7 @@
 ### Crafting recipes
 
 - Corn kernels are crafted from corn; tortillas use masa; cooked pork or cooked steak can be combined with tortillas to make tacos.
-- Flour is crafted from wheat, dough is made from flour, and dough can be baked into bread.
+- Flour is milled from wheat, dough is made from flour, and dough can be baked into bread.
 - Apple fritters use flour, baked apple, and sugar. Pies, onigiri, golden strawberries, and strawberry cake add more food recipes.
 
 ### Oven recipes
@@ -124,9 +124,10 @@
 </details>
 
 <details>
-<summary><strong>Major Event Titles</strong></summary>
+<summary><strong>Misc</strong></summary>
 
 - Major events, such as summoning the Wither or entering the End, display an on-screen title.
+- Throw an invisibility splash potion at an item frame to hide it; use a splash water bottle to restore its visibility.
 
 </details>
 
@@ -142,8 +143,8 @@ Strawberry Flavored or Polymer. The oven is
 represented to vanilla clients by an unlit campfire and the cooking pot by a cauldron;
 these are network fallbacks only.
 
-- The oven bakes foods and processes eggs, dough, masa, and apples.
-- The cooking pot processes rice, jams, and Happy Ghast treats, with heat-dependent recipes.
+- The oven bakes foods and processes eggs, dough, masa, apples, pies, cakes, apple fritters, and strawberry danishes.
+- The cooking pot processes rice, onigiri, popcorn, jams, and Happy Ghast treats, with heat-dependent recipes.
 - The millstone processes wheat, corn, and bone into food ingredients and bone meal.
 - Native progress, fuel, and heated-state indicators are shown in the server menu.
 - Processing recipes are documented through the Polydex integration and its dedicated UI assets.

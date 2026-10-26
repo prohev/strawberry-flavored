@@ -21,7 +21,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,40 +34,50 @@ import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
 import java.util.ArrayList;
 
-public final class RiceCropBlock extends CropBlock implements PolymerBlock, PolymerTexturedBlock,
+public final class RiceCropBlock extends BushBlock implements BonemealableBlock, PolymerBlock, PolymerTexturedBlock,
         SimpleWaterloggedBlock, FactoryBlock {
     public static final int MAX_AGE = 3;
+    public static final net.minecraft.world.level.block.state.properties.IntegerProperty AGE =
+            BlockStateProperties.AGE_3;
     private static final BlockState TRANSPARENT_WATERLOGGED_FALLBACK =
             PolymerBlockResourceUtils.requestEmpty(eu.pb4.polymer.blocks.api.BlockModelType.KELP);
     public RiceCropBlock(Properties properties) {
         super(properties);
-        registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
+        registerDefaultState(defaultBlockState()
+                .setValue(AGE, 0)
+                .setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(BlockStateProperties.WATERLOGGED);
+        builder.add(AGE, BlockStateProperties.WATERLOGGED);
     }
 
     @Override
     public net.minecraft.world.level.material.FluidState getFluidState(BlockState state) {
-        return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(BlockStateProperties.WATERLOGGED)
+                ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    @Override
     public int getMaxAge() { return MAX_AGE; }
+
+    public static boolean isRiceSoil(BlockState state) {
+        return state.is(BlockTags.DIRT)
+                || state.is(Blocks.GRASS_BLOCK)
+                || state.is(Blocks.MUD)
+                || state.is(Blocks.SAND)
+                || state.is(Blocks.RED_SAND);
+    }
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter world, BlockPos pos) {
-        return state.is(BlockTags.DIRT) || state.is(Blocks.MUD);
+        return isRiceSoil(state);
     }
 
     @Override
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        FluidState fluid = level.getFluidState(pos);
-        return fluid.is(Fluids.WATER) && fluid.isSource()
-                && super.canSurvive(state, level, pos);
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return state.getValue(BlockStateProperties.WATERLOGGED)
+                && isRiceSoil(level.getBlockState(pos.below()));
     }
 
     @Override
@@ -93,31 +104,33 @@ public final class RiceCropBlock extends CropBlock implements PolymerBlock, Poly
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!hasRiceLight(level, pos)) return;
-        super.randomTick(state, level, pos, random);
-        BlockState current = level.getBlockState(pos);
-        // The vanilla crop tick can remove or replace the block when it is no
-        // longer valid. Do not read AGE from the resulting air/other state.
-        if (!current.is(this)) return;
-        int age = current.getValue(AGE);
-        if (age >= getMaxAge()) createPanicles(level, pos);
+        int age = state.getValue(AGE);
+        if (random.nextInt(25) != 0) return;
+        if (age < MAX_AGE) {
+            level.setBlock(pos, state.setValue(AGE, age + 1), Block.UPDATE_CLIENTS);
+        } else {
+            createPanicles(level, pos);
+        }
     }
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state,
                                 net.minecraft.world.level.block.BonemealSource source) {
-        BlockState current = level.getBlockState(pos);
-        if (!current.is(this)) return;
-        int age = current.getValue(AGE);
-        if (age < getMaxAge()) {
-            level.setBlockAndUpdate(pos, current.setValue(AGE, Math.min(getMaxAge(), age + 1)));
+        int age = state.getValue(AGE);
+        if (age < MAX_AGE) {
+            level.setBlockAndUpdate(pos, state.setValue(AGE, Math.min(MAX_AGE, age + 1)));
+        } else {
+            createPanicles(level, pos);
         }
-        if (level.getBlockState(pos).getValue(AGE) >= getMaxAge()) createPanicles(level, pos);
     }
 
     private static void createPanicles(ServerLevel level, BlockPos pos) {
-        if (level.isEmptyBlock(pos.above())
+        BlockState baseState = level.getBlockState(pos);
+        if (baseState.is(FoodBlocks.RICE)
+                && baseState.getValue(AGE) == MAX_AGE
+                && level.isEmptyBlock(pos.above())
                 && FoodBlocks.RICE_PANICLES.defaultBlockState().canSurvive(level, pos.above())) {
             level.setBlockAndUpdate(pos.above(), FoodBlocks.RICE_PANICLES.defaultBlockState()
                     .setValue(RicePaniclesBlock.AGE, 0));
@@ -128,17 +141,17 @@ public final class RiceCropBlock extends CropBlock implements PolymerBlock, Poly
     protected BlockState updateShape(BlockState state, LevelReader level, net.minecraft.world.level.ScheduledTickAccess ticks,
                                      BlockPos pos, Direction direction, BlockPos neighborPos,
                                      BlockState neighborState, RandomSource random) {
-        return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
-    }
-
-    @Override
-    protected net.minecraft.world.level.ItemLike getBaseSeedId() {
-        return FoodBlocks.RICE_ITEM;
+        BlockState updated = super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
+        return updated.isAir() ? Blocks.WATER.defaultBlockState() : updated;
     }
 
     @Override
     public BlockState playerWillDestroy(net.minecraft.world.level.Level level, BlockPos pos,
                                         BlockState state, net.minecraft.world.entity.player.Player player) {
+        BlockPos paniclesPos = pos.above();
+        if (level.getBlockState(paniclesPos).is(FoodBlocks.RICE_PANICLES)) {
+            level.destroyBlock(paniclesPos, true);
+        }
         if (!level.isClientSide()) {
             popResource(level, pos, new ItemStack(FoodBlocks.RICE_ITEM));
         }

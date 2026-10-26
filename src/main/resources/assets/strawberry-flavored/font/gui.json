@@ -2,7 +2,7 @@
   "providers": [
     {
       "type": "space",
-      "advances": {"a": -8, "c": -168, "h": 156}
+      "advances": {"a": -8, "c": -168, "h": 157}
     },
     {
       "type": "bitmap",

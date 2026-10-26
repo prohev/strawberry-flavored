@@ -20,7 +20,7 @@
 - [ ] Enchantment improvements: right-clicking a shard with a tool in the off-hand to increase enchantment levels; add higher max-level enchantments like Fortune IV; allow stacking effects such as Protection and Fire Protection.
 - [ ] New enchantment: Vampirism (lifesteal) that heals for a portion of damage dealt.
 - [ ] New structure ideas.
-- [ ] Item frame invisibility: throw an invisibility potion on an item frame to hide it; use a splash water bottle to restore visibility.
+- [x] Item frame invisibility: throw an invisibility potion on an item frame to hide it; use a splash water bottle to restore visibility.
 - [ ] Crop effects: like bees flying over crops during rain, giving a small bonemeal effect.
 - [ ] Ghost peppers in the Nether.
 - [ ] Echo shard silencing: dampen vibrations/sound emissions.
