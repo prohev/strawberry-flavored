@@ -33,6 +33,10 @@ public final class FoodItems {
     public static final Item BLUEBERRY_PIE = register("blueberry_pie", Items.ECHO_SHARD, 6, 0.6f);
     public static final Item STRAWBERRY_PIE = register("strawberry_pie", Items.ECHO_SHARD, 6, 0.6f);
     public static final Item STRAWBERRY_CAKE = FoodBlocks.STRAWBERRY_CAKE.asItem();
+    public static final Item CARROT_CAKE = FoodBlocks.CARROT_CAKE.asItem();
+    public static final Item PREMIUM_CAKE = FoodBlocks.PREMIUM_CAKE.asItem();
+    public static final Item COOKIE_CAKE = FoodBlocks.COOKIE_CAKE.asItem();
+    public static final Item PANCAKE = FoodBlocks.PANCAKE.asItem();
     public static final Item CORN = register("corn", Items.ECHO_SHARD, 3, 0.3f);
     public static final Item POPCORN = register("popcorn", Items.ECHO_SHARD, 4, 0.4f);
     public static final Item MASA = register("masa", Items.ECHO_SHARD, 0, 0);
@@ -42,8 +46,10 @@ public final class FoodItems {
     public static final Item APPLE_FRITTER = register("apple_fritter", Items.ECHO_SHARD, 7, 0.8f);
     public static final Item STRAWBERRY_DANISH = register("strawberry_danish", Items.ECHO_SHARD, 7, 0.8f);
     public static final Item FRIED_EGG = register("fried_egg", Items.COOKED_BEEF, 5, 0.6f);
-    public static final Item MILK_BOTTLE = register("milk_bottle", Items.POTION, 0, 0, false);
+    public static final Item MILK_BOTTLE = register("milk_bottle", Items.POTION, 0, 0);
     public static final Item STRAWBERRY_MILK = registerMilk("strawberry_milk", 6, 0.8f);
+    public static final Item LETTUCE_WRAP = register("lettuce_wrap", Items.COOKED_BEEF, 7, 0.8f);
+    public static final Item BERRY_FILLED_CREPES = register("berry_filled_crepes", Items.PUMPKIN_PIE, 8, 0.8f);
 
     private FoodItems() {}
 

@@ -24,6 +24,10 @@ public final class FoodContent {
         BlockStateModelManager.addBlock(StrawberryFlavored.id("oven"), FoodBlocks.OVEN);
         BlockStateModelManager.addBlock(StrawberryFlavored.id("cooking_pot"), FoodBlocks.COOKING_POT);
         BlockStateModelManager.addBlock(StrawberryFlavored.id("strawberry_cake"), FoodBlocks.STRAWBERRY_CAKE);
+        BlockStateModelManager.addBlock(StrawberryFlavored.id("carrot_cake"), FoodBlocks.CARROT_CAKE);
+        BlockStateModelManager.addBlock(StrawberryFlavored.id("premium_cake"), FoodBlocks.PREMIUM_CAKE);
+        BlockStateModelManager.addBlock(StrawberryFlavored.id("cookie_cake"), FoodBlocks.COOKIE_CAKE);
+        BlockStateModelManager.addBlock(StrawberryFlavored.id("pancake"), FoodBlocks.PANCAKE);
         verifyFactoryModel("millstone", FoodBlocks.MILLSTONE);
         verifyFactoryModel("oven", FoodBlocks.OVEN);
         verifyFactoryModel("cooking_pot", FoodBlocks.COOKING_POT);

@@ -127,6 +127,12 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
                 if (getItem(slot).is(required)) { getItem(slot).shrink(1); break; }
             }
         }
+        if (recipe != null && recipe.containerReturn() != null) {
+            ItemStack returned = new ItemStack(recipe.containerReturn());
+            for (int slot = 0; slot < INPUT_SLOT_COUNT; slot++) {
+                if (getItem(slot).isEmpty()) { setItem(slot, returned); break; }
+            }
+        }
         ItemStack output = getItem(OUTPUT_SLOT);
         if (output.isEmpty()) setItem(OUTPUT_SLOT, new ItemStack(recipe.output(), recipe.outputCount()));
         else output.grow(recipe.outputCount());

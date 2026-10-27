@@ -22,13 +22,20 @@ import java.util.ArrayList;
 
 /** Vanilla cake mechanics represented to vanilla clients by a vanilla cake. */
 public final class StrawberryCakeBlock extends CakeBlock implements PolymerBlock, FactoryBlock {
+    private final String modelPrefix;
+
     public StrawberryCakeBlock(Properties properties) {
+        this(properties, "strawberry_cake");
+    }
+
+    public StrawberryCakeBlock(Properties properties, String modelPrefix) {
         super(properties);
+        this.modelPrefix = modelPrefix;
     }
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        return Blocks.BARRIER.defaultBlockState();
+        return Blocks.CAKE.defaultBlockState();
     }
 
     @Override
@@ -41,15 +48,15 @@ public final class StrawberryCakeBlock extends CakeBlock implements PolymerBlock
         return new Model(state);
     }
 
-    public static final class Model extends BlockModel {
-        private static final ArrayList<ItemStack> MODELS = new ArrayList<>();
+    public final class Model extends BlockModel {
+        private final ArrayList<ItemStack> models = new ArrayList<>();
         private final ItemDisplayElement main;
 
-        static {
+        {
             for (int bites = 0; bites <= 6; bites++) {
-                MODELS.add(ItemDisplayElementUtil.getModelCopy(
+                models.add(ItemDisplayElementUtil.getModelCopy(
                         Identifier.fromNamespaceAndPath("strawberry-flavored",
-                                "block/strawberry_cake_slice" + bites)));
+                                "block/" + modelPrefix + "_slice" + bites)));
             }
         }
 
@@ -61,7 +68,7 @@ public final class StrawberryCakeBlock extends CakeBlock implements PolymerBlock
         }
 
         private void updateItem(BlockState state) {
-            this.main.setItem(MODELS.get(state.getValue(BlockStateProperties.BITES)));
+            this.main.setItem(models.get(state.getValue(BlockStateProperties.BITES)));
         }
 
         @Override
