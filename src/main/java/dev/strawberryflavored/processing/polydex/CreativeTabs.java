@@ -58,6 +58,10 @@ public final class CreativeTabs {
         output.accept(FoodItems.BLUEBERRY_PIE);
         output.accept(FoodItems.STRAWBERRY_PIE);
         output.accept(FoodItems.STRAWBERRY_CAKE);
+        output.accept(FoodItems.CARROT_CAKE);
+        output.accept(FoodItems.PREMIUM_CAKE);
+        output.accept(FoodItems.COOKIE_CAKE);
+        output.accept(FoodItems.PANCAKE);
         output.accept(FoodItems.CORN);
         output.accept(FoodItems.POPCORN);
         output.accept(FoodItems.MASA);
@@ -71,6 +75,11 @@ public final class CreativeTabs {
         output.accept(FoodItems.STRAWBERRY_MILK);
         output.accept(FoodBlocks.CORN_KERNELS);
         output.accept(FoodBlocks.RICE_ITEM);
+        output.accept(FoodBlocks.SOUL_PEPPER);
+        output.accept(FoodBlocks.LETTUCE);
+        output.accept(FoodBlocks.LETTUCE_SEEDS);
+        output.accept(FoodItems.LETTUCE_WRAP);
+        output.accept(FoodItems.BERRY_FILLED_CREPES);
     }
 
     private static boolean isFoodItem(Item item) {
@@ -82,10 +91,14 @@ public final class CreativeTabs {
                 || item == FoodItems.BAKED_APPLE || item == FoodItems.GOLDEN_STRAWBERRY
                 || item == FoodItems.APPLE_PIE || item == FoodItems.BLUEBERRY_PIE
                 || item == FoodItems.STRAWBERRY_PIE || item == FoodItems.STRAWBERRY_CAKE
+                || item == FoodItems.CARROT_CAKE || item == FoodItems.PREMIUM_CAKE
+                || item == FoodItems.COOKIE_CAKE || item == FoodItems.PANCAKE
                 || item == FoodItems.CORN || item == FoodItems.POPCORN || item == FoodItems.MASA || item == FoodItems.TORTILLA
                 || item == FoodItems.PORK_TACO || item == FoodItems.STEAK_TACO
                 || item == FoodItems.APPLE_FRITTER || item == FoodItems.STRAWBERRY_DANISH || item == FoodItems.FRIED_EGG
                 || item == FoodItems.MILK_BOTTLE || item == FoodItems.STRAWBERRY_MILK
-                || item == FoodBlocks.CORN_KERNELS || item == FoodBlocks.RICE_ITEM;
+                || item == FoodBlocks.CORN_KERNELS || item == FoodBlocks.RICE_ITEM
+                || item == FoodBlocks.SOUL_PEPPER || item == FoodBlocks.LETTUCE
+                || item == FoodItems.LETTUCE_WRAP || item == FoodItems.BERRY_FILLED_CREPES;
     }
 }

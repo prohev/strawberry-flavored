@@ -5,6 +5,8 @@ import dev.strawberryflavored.food.crop.BerryBushBlock;
 import dev.strawberryflavored.food.crop.CornCropBlock;
 import dev.strawberryflavored.food.crop.RiceCropBlock;
 import dev.strawberryflavored.food.crop.RicePaniclesBlock;
+import dev.strawberryflavored.food.crop.SimpleFoodCropBlock;
+import dev.strawberryflavored.food.crop.WildFoodCropBlock;
 import dev.strawberryflavored.food.item.FoodPolymerBlockItem;
 import dev.strawberryflavored.food.item.RiceItem;
 import dev.strawberryflavored.item.Signature;
@@ -35,6 +37,25 @@ public final class FoodCropBlocks {
     public static final Item BLUEBERRY = registerBerryItem("blueberry", BLUEBERRY_BUSH);
     public static final Item RICE_ITEM = Registry.register(BuiltInRegistries.ITEM, itemKey("rice"),
             new RiceItem(Signature.sign(new Item.Properties().setId(itemKey("rice")))));
+    public static final ResourceKey<Block> SOUL_PEPPER_KEY = key("soul_pepper");
+    public static final Block SOUL_PEPPER_CROP = registerBlock(SOUL_PEPPER_KEY,
+            new SimpleFoodCropBlock(Block.Properties.ofFullCopy(Blocks.WHEAT).setId(SOUL_PEPPER_KEY),
+                    () -> FoodBlocks.SOUL_PEPPER, () -> FoodBlocks.SOUL_PEPPER, Blocks.SOUL_SAND));
+    public static final ResourceKey<Block> LETTUCE_KEY = key("lettuce");
+    public static final Block LETTUCE_CROP = registerBlock(LETTUCE_KEY,
+            new SimpleFoodCropBlock(Block.Properties.ofFullCopy(Blocks.WHEAT).setId(LETTUCE_KEY),
+                    () -> FoodBlocks.LETTUCE, () -> FoodBlocks.LETTUCE_SEEDS, Blocks.FARMLAND));
+    public static final Item LETTUCE_SEEDS = registerBlockItem("lettuce_seeds", LETTUCE_CROP, Items.WHEAT_SEEDS);
+    public static final Item SOUL_PEPPER = registerSimpleItem("soul_pepper", Items.PUFFERFISH);
+    public static final Item LETTUCE = registerSimpleItem("lettuce", Items.KELP);
+    public static final Block WILD_SOUL_PEPPER = registerBlock(key("wild_soul_pepper"),
+            new WildFoodCropBlock(Block.Properties.ofFullCopy(Blocks.SHORT_GRASS).noCollision()
+                    .setId(key("wild_soul_pepper")), "wild_soul_pepper", () -> FoodBlocks.SOUL_PEPPER,
+                    () -> FoodBlocks.SOUL_PEPPER, Blocks.SOUL_SAND));
+    public static final Block WILD_LETTUCE = registerBlock(key("wild_lettuce"),
+            new WildFoodCropBlock(Block.Properties.ofFullCopy(Blocks.SHORT_GRASS).noCollision()
+                    .setId(key("wild_lettuce")), "wild_lettuce", () -> FoodBlocks.LETTUCE,
+                    () -> FoodBlocks.LETTUCE_SEEDS, Blocks.FARMLAND));
 
     private FoodCropBlocks() {}
     public static void initialize() {}
@@ -63,5 +84,11 @@ public final class FoodCropBlocks {
         ResourceKey<Item> key = itemKey(name);
         return Registry.register(BuiltInRegistries.ITEM, key,
                 new FoodPolymerBlockItem(block, Signature.sign(new Item.Properties().setId(key)), Items.SWEET_BERRIES, name));
+    }
+    private static Item registerSimpleItem(String name, Item fallback) {
+        ResourceKey<Item> key = itemKey(name);
+        return Registry.register(BuiltInRegistries.ITEM, key,
+                new dev.strawberryflavored.food.item.FoodPolymerItem(Signature.sign(new Item.Properties().setId(key)
+                        .food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(2).saturationModifier(0.2f).build())), fallback, name));
     }
 }

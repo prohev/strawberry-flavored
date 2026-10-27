@@ -8,6 +8,7 @@
     "FlourWaterCauldronMixin",
     "SoulHeartPlayerMixin",
     "SoulHeartServerPlayerMixin"
+    ,"WanderingTraderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

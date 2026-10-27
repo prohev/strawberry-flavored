@@ -17,6 +17,15 @@ public final class FoodBlocks {
     public static final Item STRAWBERRY = FoodCropBlocks.STRAWBERRY;
     public static final Item BLUEBERRY = FoodCropBlocks.BLUEBERRY;
     public static final Item RICE_ITEM = FoodCropBlocks.RICE_ITEM;
+    public static final ResourceKey<Block> SOUL_PEPPER_KEY = FoodCropBlocks.SOUL_PEPPER_KEY;
+    public static final Block SOUL_PEPPER_CROP = FoodCropBlocks.SOUL_PEPPER_CROP;
+    public static final Item SOUL_PEPPER = FoodCropBlocks.SOUL_PEPPER;
+    public static final ResourceKey<Block> LETTUCE_KEY = FoodCropBlocks.LETTUCE_KEY;
+    public static final Block LETTUCE_CROP = FoodCropBlocks.LETTUCE_CROP;
+    public static final Item LETTUCE_SEEDS = FoodCropBlocks.LETTUCE_SEEDS;
+    public static final Item LETTUCE = FoodCropBlocks.LETTUCE;
+    public static final Block WILD_SOUL_PEPPER = FoodCropBlocks.WILD_SOUL_PEPPER;
+    public static final Block WILD_LETTUCE = FoodCropBlocks.WILD_LETTUCE;
 
     public static final Block MILLSTONE = FoodMachineBlocks.MILLSTONE;
     public static final Block OVEN = FoodMachineBlocks.OVEN;
@@ -24,6 +33,10 @@ public final class FoodBlocks {
 
     public static final ResourceKey<Block> STRAWBERRY_CAKE_KEY = FoodDecorativeBlocks.STRAWBERRY_CAKE_KEY;
     public static final Block STRAWBERRY_CAKE = FoodDecorativeBlocks.STRAWBERRY_CAKE;
+    public static final Block CARROT_CAKE = FoodDecorativeBlocks.CARROT_CAKE;
+    public static final Block PREMIUM_CAKE = FoodDecorativeBlocks.PREMIUM_CAKE;
+    public static final Block COOKIE_CAKE = FoodDecorativeBlocks.COOKIE_CAKE;
+    public static final Block PANCAKE = FoodDecorativeBlocks.PANCAKE;
 
     private FoodBlocks() {}
 

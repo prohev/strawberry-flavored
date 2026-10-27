@@ -41,7 +41,8 @@ public final class FoodProcessingRecipes {
             new ProcessingRecipe("oven", List.of(FoodItems.BLUEBERRY, FoodItems.DOUGH, Items.SUGAR), FoodItems.BLUEBERRY_PIE, 200, null),
             new ProcessingRecipe("oven", List.of(FoodItems.STRAWBERRY, FoodItems.DOUGH, Items.SUGAR), FoodItems.STRAWBERRY_PIE, 200, null),
             new ProcessingRecipe("oven", List.of(FoodItems.STRAWBERRY_JAM, FoodItems.DOUGH, Items.SUGAR), FoodItems.STRAWBERRY_DANISH, 200, null),
-            new ProcessingRecipe("oven", List.of(FoodItems.STRAWBERRY, Items.CAKE), FoodItems.STRAWBERRY_CAKE, 200, null)
+            new ProcessingRecipe("oven", List.of(FoodItems.DOUGH, FoodItems.MILK_BOTTLE, Items.SUGAR, Items.EGG,
+                    FoodItems.STRAWBERRY), FoodItems.STRAWBERRY_CAKE, 240, Items.GLASS_BOTTLE)
     );
     public static volatile List<ProcessingRecipe> COOKING_POT = List.of(
             new ProcessingRecipe("cooking_pot", List.of(FoodBlocks.RICE_ITEM), FoodItems.COOKED_RICE, 100, null),
@@ -52,7 +53,15 @@ public final class FoodProcessingRecipes {
             new ProcessingRecipe("cooking_pot", List.of(FoodItems.COOKED_RICE, FoodItems.COOKED_RICE, Items.DRIED_KELP), FoodItems.ONIGIRI, 2, 100, null),
             new ProcessingRecipe("cooking_pot", List.of(FoodBlocks.CORN_KERNELS, Items.SUGAR), FoodItems.POPCORN, 100, null),
             new ProcessingRecipe("cooking_pot", List.of(FoodItems.MILK_BOTTLE, FoodItems.STRAWBERRY),
-                    FoodItems.STRAWBERRY_MILK, 100, null)
+                    FoodItems.STRAWBERRY_MILK, 100, null),
+            new ProcessingRecipe("cooking_pot", List.of(FoodItems.FLOUR, FoodItems.MILK_BOTTLE, Items.EGG,
+                    FoodItems.STRAWBERRY, Items.SWEET_BERRIES), FoodItems.BERRY_FILLED_CREPES, 100, Items.GLASS_BOTTLE)
+            ,new ProcessingRecipe("cooking_pot", List.of(FoodBlocks.LETTUCE, Items.COOKED_BEEF), FoodItems.LETTUCE_WRAP, 100, null)
+            ,new ProcessingRecipe(Items.BEEF, Items.COOKED_BEEF, 160)
+            ,new ProcessingRecipe(Items.PORKCHOP, Items.COOKED_PORKCHOP, 160)
+            ,new ProcessingRecipe(Items.CHICKEN, Items.COOKED_CHICKEN, 160)
+            ,new ProcessingRecipe(Items.MUTTON, Items.COOKED_MUTTON, 160)
+            ,new ProcessingRecipe(Items.RABBIT, Items.COOKED_RABBIT, 160)
     );
 
     public static List<ProcessingRecipe> forStation(dev.strawberryflavored.processing.block.FoodMachineBlock.Station station) {
