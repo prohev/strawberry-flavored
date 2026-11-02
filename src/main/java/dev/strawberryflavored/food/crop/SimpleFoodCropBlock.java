@@ -44,7 +44,7 @@ public final class SimpleFoodCropBlock extends CropBlock implements PolymerBlock
     }
 
     @Override protected boolean mayPlaceOn(BlockState state, BlockGetter world, BlockPos pos) {
-        return state.is(soil) || (soil == Blocks.FARMLAND && (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK)));
+        return state.is(soil);
     }
     @Override protected net.minecraft.world.level.ItemLike getBaseSeedId() { return seed.get(); }
 

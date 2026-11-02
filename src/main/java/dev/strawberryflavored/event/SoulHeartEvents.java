@@ -1,6 +1,8 @@
 package dev.strawberryflavored.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,18 +14,29 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
 import java.util.Set;
 
 import dev.strawberryflavored.item.SoulHeartItems;
+import dev.strawberryflavored.item.SculkRevolverItem;
 import dev.strawberryflavored.states.SoulHeartState;
 
 public final class SoulHeartEvents {
     private static final Set<Identifier> SHARD_LOOT = Set.of(Identifier.withDefaultNamespace("chests/ancient_city"), Identifier.withDefaultNamespace("chests/ancient_city_ice_box"));
+    private static final Identifier SNIFFER_LOOT = Identifier.withDefaultNamespace("entities/sniffer");
     private SoulHeartEvents() {}
     public static void register() {
+        ServerTickEvents.END_SERVER_TICK.register(SculkRevolverItem::tickReloads);
+        AttackBlockCallback.EVENT.register((player, level, hand, pos, direction) ->
+                hand == InteractionHand.MAIN_HAND && player.getMainHandItem().is(SoulHeartItems.SCULK_REVOLVER)
+                        ? InteractionResult.FAIL : InteractionResult.PASS);
         LootTableEvents.MODIFY.register((key, builder, source, registries) -> {
             if (source.isBuiltin() && SHARD_LOOT.contains(key.identifier())) {
                 builder.withPool(LootPool.lootPool().when(LootItemRandomChanceCondition.randomChance(0.10f)).add(LootItem.lootTableItem(SoulHeartItems.SOUL_SHARD)));
+            }
+            if (source.isBuiltin() && SNIFFER_LOOT.equals(key.identifier())) {
+                builder.withPool(LootPool.lootPool().when(LootItemRandomChanceCondition.randomChance(0.25f)).add(LootItem.lootTableItem(SoulHeartItems.SOUL_FRAGMENT)));
             }
         });
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, source) -> {

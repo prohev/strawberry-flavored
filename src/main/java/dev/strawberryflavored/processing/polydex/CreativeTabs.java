@@ -99,6 +99,7 @@ public final class CreativeTabs {
                 || item == FoodItems.MILK_BOTTLE || item == FoodItems.STRAWBERRY_MILK
                 || item == FoodBlocks.CORN_KERNELS || item == FoodBlocks.RICE_ITEM
                 || item == FoodBlocks.SOUL_PEPPER || item == FoodBlocks.LETTUCE
+                || item == FoodBlocks.LETTUCE_SEEDS
                 || item == FoodItems.LETTUCE_WRAP || item == FoodItems.BERRY_FILLED_CREPES;
     }
 }

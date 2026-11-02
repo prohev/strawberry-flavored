@@ -54,6 +54,17 @@
 - Combine strawberries or blueberries with sugar into their corresponding jams.
 - Combine honeycomb, a honey bottle, and sugar in the cooking pot to make Happy Ghast treats.
 
+### Rose gold
+
+<p align="left">
+  <img src="readme-images/rose_gold_item.png" alt="Rose Gold ingot" width="128">
+</p>
+
+- Rose Gold is crafted shapelessly from two Copper Ingots and six Gold Ingots.
+- Nine Rose Gold Ingots craft into a Block of Rose Gold.
+- Rose Gold is used when crafting both the Cooking Pot and the Oven.
+- The Rose Gold ingot uses a pink iron-ingot-style texture for vanilla clients.
+
 </details>
 
 <details>

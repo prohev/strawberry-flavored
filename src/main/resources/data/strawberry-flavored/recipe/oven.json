@@ -2,5 +2,5 @@
 "pattern":
     ["CCC",
     "D D",
-    "DFD"],
-"key":{"C":"minecraft:copper_ingot","D":"minecraft:deepslate","F":"minecraft:campfire"},"result":{"id":"strawberry-flavored:oven","count":1}}
+    "DFR"],
+"key":{"C":"minecraft:copper_ingot","D":"minecraft:deepslate","F":"minecraft:campfire","R":"strawberry-flavored:rose_gold"},"result":{"id":"strawberry-flavored:oven","count":1}}

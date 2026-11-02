@@ -9,6 +9,7 @@ import dev.strawberryflavored.item.SoulHeartItems;
 import dev.strawberryflavored.world.MajorEventTitles;
 import dev.strawberryflavored.world.FoodWorldGeneration;
 import dev.strawberryflavored.world.FoodLootAndTradeIntegration;
+import dev.strawberryflavored.material.RoseGoldContent;
 import dev.strawberryflavored.food.FoodContent;
 import dev.strawberryflavored.processing.polydex.ProcessingPolydex;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
@@ -47,6 +48,7 @@ public class StrawberryFlavored implements ModInitializer {
         TrimBuffManager.register();
         MajorEventTitles.register();
         FoodWorldGeneration.register();
+        RoseGoldContent.initialize();
         FoodLootAndTradeIntegration.register();
         FlowerCrownItems.initialize();
         HappyGhastTreatItems.initialize();

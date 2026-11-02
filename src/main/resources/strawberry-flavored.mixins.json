@@ -7,8 +7,10 @@
     "ThrownSplashPotionMixin",
     "FlourWaterCauldronMixin",
     "SoulHeartPlayerMixin",
-    "SoulHeartServerPlayerMixin"
-    ,"WanderingTraderMixin"
+    "SoulHeartServerPlayerMixin",
+    "VoidTotemMixin"
+    ,"WanderingTraderMixin",
+    "SculkRevolverSwingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

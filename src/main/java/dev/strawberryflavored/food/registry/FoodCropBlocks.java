@@ -47,7 +47,7 @@ public final class FoodCropBlocks {
                     () -> FoodBlocks.LETTUCE, () -> FoodBlocks.LETTUCE_SEEDS, Blocks.FARMLAND));
     public static final Item LETTUCE_SEEDS = registerBlockItem("lettuce_seeds", LETTUCE_CROP, Items.WHEAT_SEEDS);
     public static final Item SOUL_PEPPER = registerSimpleItem("soul_pepper", Items.PUFFERFISH);
-    public static final Item LETTUCE = registerSimpleItem("lettuce", Items.KELP);
+    public static final Item LETTUCE = registerSimpleItem("lettuce", Items.ECHO_SHARD);
     public static final Block WILD_SOUL_PEPPER = registerBlock(key("wild_soul_pepper"),
             new WildFoodCropBlock(Block.Properties.ofFullCopy(Blocks.SHORT_GRASS).noCollision()
                     .setId(key("wild_soul_pepper")), "wild_soul_pepper", () -> FoodBlocks.SOUL_PEPPER,

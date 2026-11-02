@@ -149,6 +149,17 @@ public final class FoodMachineBlockEntity extends BaseContainerBlockEntity {
     protected void setItems(NonNullList<ItemStack> items) { this.items = items; }
 
     @Override
+    public void setItem(int slot, ItemStack stack) {
+        ItemStack previous = getItem(slot);
+        super.setItem(slot, stack);
+        if (slot >= INPUT_SLOT && slot < INPUT_SLOT + INPUT_SLOT_COUNT
+                && !ItemStack.matches(previous, stack)) {
+            // A new input (or a changed stack count) starts a fresh recipe.
+            progress = 0;
+        }
+    }
+
+    @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
         if (slot < 0 || slot >= INPUT_SLOT_COUNT) return false;
         return FoodProcessingRecipes.forStation(station).stream()
